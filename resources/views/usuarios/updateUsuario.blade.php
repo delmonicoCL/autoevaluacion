@@ -19,51 +19,50 @@
                 <div class="form-group">
                     <label for="nombre">Usuario</label>
                     <input type="text" class="form-control" id="nom_usuari" name="nom_usuari"
-                        value="{{ $usuarios->nom_usuari }}">
+                        value="{{ $usuarios->nom_usuari }}"required>
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nom" value="{{ $usuarios->nom }}">
+                    <input type="text" class="form-control" id="nombre" name="nom" value="{{ $usuarios->nom }}"required>
                 </div>
                 <div class="form-group">
                     <label for="apellido">Apellido</label>
                     <input type="text" class="form-control" id="apellido" name="cognom"
-                        value="{{ $usuarios->cognom }}">
+                        value="{{ $usuarios->cognom }}"required>
                 </div>
                 <div class="form-group">
                     <label for="contraseña">Contraseña</label>
                     <input type="password" class="form-control" id="contraseña" name="contrasenya"
-                        value="{{ $usuarios->contrasenya }}">
+                        value="{{ $usuarios->contrasenya }}"required>
                 </div>
                 <div class="form-group">
                     <label for="correo">Correo</label>
                     <input type="email" class="form-control" id="correo" name="correu"
-                        value="{{ $usuarios->correu }}">
+                        value="{{ $usuarios->correu }}"required>
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado</label>
-                    <select class="form-select" id="estado" name="actiu" aria-label="Default select example">
-                        <option selected>Seleccione Estado</option>
-                        <option value="1">Activo</option>
-                        <option value="2">No Activo</option>
+                    <select class="form-select" id="estado" name="actiu" aria-label="Default select example" required>
+                        <option value="1" {{ $usuarios->actiu == 1 ? 'selected' : '' }}>Activo</option>
+                        <option value="2" {{ $usuarios->actiu == 2 ? 'selected' : '' }}>No Activo</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="tipo_usuario">Tipo de Usuario</label>
-                    <select class="form-select" id="tipo_usuario" name="tipus_usuaris_id"
-                        aria-label="Default select example">
-                        <option selected>Seleccione Categoria</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Profesor</option>
-                        <option value="3">Alumno</option>
+                    <select class="form-select" id="tipo_usuario" name="tipus_usuaris_id" aria-label="Default select example" required>
+                        <option value="1" {{ $usuarios->tipus_usuaris_id == 1 ? 'selected' : '' }}>Administrador</option>
+                        <option value="2" {{ $usuarios->tipus_usuaris_id == 2 ? 'selected' : '' }}>Profesor</option>
+                        <option value="3" {{ $usuarios->tipus_usuaris_id == 3 ? 'selected' : '' }}>Alumno</option>
                     </select>
                 </div>
+
         </div>
         <div class="card-footer text-end mt-5">
-            <button type="submit" class="btn btn-primary" form="formularioEditar" id="aceptar">
+            <button type="submit" class="btn lila text-white" form="formularioEditar" id="aceptar">
                 Aceptar
             </button>
-            <a href="{{ url('usuaris') }}" class="btn btn-secondary">
+            <a href="{{ url('usuaris') }}" class="btn naranja text-white">
                 Cancelar
             </a>
         </div>

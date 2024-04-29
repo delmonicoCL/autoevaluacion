@@ -7,6 +7,19 @@
             <h2>USUARIOS</h2>
         </div>
 
+       @if (session('success'))
+            <div class="alert alert-success">
+              {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+
         <!-- Formulario de filtrado por tipo de usuario -->
       <form  form action="{{ route('usuaris.index') }}" method="GET">
          <div class="row d-flex align-items-center justify-content-start"> 
@@ -32,7 +45,7 @@
 
 
         <!-- Tabla de usuarios -->
-        <table class="mt-2 table table-striped table-borderless">
+        <table class="mt-2 table table-hover table-borderless">
             <thead class="table-dark lila">
                 <tr>
                     <th scope="col">ID</th>
@@ -190,59 +203,51 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ action([App\Http\Controllers\UsuarisController::class, 'store']) }}"
-                            method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nom_usuari"
-                                    placeholder="Ingrese su nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nom"
-                                    placeholder="Ingrese su nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="apellido">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" name="cognom"
-                                    placeholder="Ingrese su apellido">
-                            </div>
-                            <div class="form-group">
-                                <label for="contraseña">Contraseña</label>
-                                <input type="password" class="form-control" id="contraseña" name="contrasenya"
-                                    placeholder="Ingrese su contraseña">
-                            </div>
-                            <div class="form-group">
-                                <label for="correo">Correo</label>
-                                <input type="email" class="form-control" id="correo" name="correu"
-                                    placeholder="Ingrese su correo">
-                            </div>
-                            <div class="form-group">
-                                <label for="estado">Estado</label>
-                                <select class="form-select" id="estado" name="actiu"
-                                    aria-label="Default select example">
-                                    <option selected>Seleccione Estado</option>
-                                    <option value="1">Activo</option>
-                                    <option value="2">No Activo</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="tipo_usuario">Tipo de Usuario</label>
-                                <select class="form-select" id="tipo_usuario" name="tipus_usuaris_id"
-                                    aria-label="Default select example">
-                                    <option selected>Seleccione Categoria</option>
-                                    <option value="1">Administrador</option>
-                                    <option value="2">Profesor</option>
-                                    <option value="3">Alumno</option>
-                                </select>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn rojo text-white"
-                                    data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn lila text-white">Guardar</button>
-                            </div>
-                        </form>
+                      <form action="{{ action([App\Http\Controllers\UsuarisController::class, 'store']) }}" method="POST">
+    @csrf
+    <div class="form-group">
+        <label for="nombre">Nombre de usuario</label>
+        <input type="text" class="form-control" id="nombre" name="nom_usuari" placeholder="Ingrese su nombre" required>
+    </div>
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nom" placeholder="Ingrese su nombre" required>
+    </div>
+    <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input type="text" class="form-control" id="apellido" name="cognom" placeholder="Ingrese su apellido" required>
+    </div>
+    <div class="form-group">
+        <label for="contraseña">Contraseña</label>
+        <input type="password" class="form-control" id="contraseña" name="contrasenya" placeholder="Ingrese su contraseña" required>
+    </div>
+    <div class="form-group">
+        <label for="correo">Correo</label>
+        <input type="email" class="form-control" id="correo" name="correu" placeholder="Ingrese su correo" required>
+    </div>
+    <div class="form-group">
+        <label for="estado">Estado</label>
+        <select class="form-select" id="estado" name="actiu" aria-label="Default select example" required>
+            <option value="" selected disabled>Seleccione Estado</option>
+            <option value="1">Activo</option>
+            <option value="2">No Activo</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="tipo_usuario">Tipo de Usuario</label>
+        <select class="form-select" id="tipo_usuario" name="tipus_usuaris_id" aria-label="Default select example" required>
+            <option value="" selected disabled>Seleccione Categoria</option>
+            <option value="1">Administrador</option>
+            <option value="2">Profesor</option>
+            <option value="3">Alumno</option>
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn rojo text-white" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn lila text-white">Guardar</button>
+    </div>
+</form>
+
                     </div>
                 </div>
             </div>

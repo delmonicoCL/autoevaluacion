@@ -2,17 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\tipus_usuaris;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 
-class usuaris extends Model
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+
+class usuaris extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'usuaris';
-    protected $primaryKey = 'id';
+    // protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function tipusUsuaris() {
+       /**
+        * Summary of tipusUsuaris
+        * @return \Illuminate\Database\Eloquent\Relations\BelongsTo    
+        */
+
+
+    public function tipusUsuaris():BelongsTo
+    {
         return $this->belongsTo(tipus_usuaris::class, 'tipus_usuaris_id');
     }
 
