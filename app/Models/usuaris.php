@@ -19,22 +19,24 @@ class usuaris extends Authenticatable
     // protected $primaryKey = 'id';
     public $timestamps = false;
 
-       /**
-        * Summary of tipusUsuaris
-        * @return \Illuminate\Database\Eloquent\Relations\BelongsTo    
-        */
+    /**
+     * Summary of tipusUsuaris
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo    
+     */
 
 
-    public function tipusUsuaris():BelongsTo
+    public function tipusUsuaris(): BelongsTo
     {
         return $this->belongsTo(tipus_usuaris::class, 'tipus_usuaris_id');
     }
 
-    public function moduls() {
+    public function moduls()
+    {
         return $this->belongsToMany(moduls::class, 'usuaris_has_moduls', 'usuaris_id', 'moduls_id');
     }
 
-    public function criteris_avaluacio() {
+    public function criteris_avaluacio()
+    {
         return $this->belongsToMany(criteris_avaluacio::class, 'alumnes_has_criteris_avaluacio', 'usuaris_id', 'criteris_avaluacio_id')->withPivot('nota');
     }
 
