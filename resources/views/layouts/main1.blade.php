@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="col-md-2 collapse navbar-collapse" id="navbarNav">
-                    <form class="col-md-12 d-md-flex justify-content-md-end mb-2 me-5 botonLogin text-white"
+                    <form class="col-md-12 d-md-flex justify-content-md-end botonLogin text-white"
                         role="search">
                         <ul class="navbar-nav ml-auto">
                             @if (Auth::check())
