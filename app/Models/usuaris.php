@@ -32,7 +32,8 @@ class usuaris extends Authenticatable
 
     public function moduls()
     {
-        return $this->belongsToMany(moduls::class, 'usuaris_has_moduls', 'usuaris_id', 'moduls_id');
+        return $this->belongsToMany(Moduls::class, 'usuaris_has_moduls', 'usuaris_id', 'moduls_id');
+        
     }
 
     public function criteris_avaluacio()

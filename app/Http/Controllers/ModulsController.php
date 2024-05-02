@@ -14,6 +14,7 @@ class ModulsController extends Controller
      */
     public function index()
     {
+        $modulos = Moduls::with('cicle')->get();
         $modulos = Moduls::paginate(10);
 
         return view('moduls.modulosView', ['modulos' => $modulos]);

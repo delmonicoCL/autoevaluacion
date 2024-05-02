@@ -48,9 +48,15 @@
 </div>
 
 
-        <div class="col-5 custom-margin">
-            <div class="card">
-                <div class="card-header colorBarra">
+    <div class="col-5 custom-margin">
+           
+            <div class=" mb-5 custom-margin d-flex flex-column ">
+               <H1 class="align-items-center font" style="font-size: 60px;">AUTOEVALUACION</H1>
+               <p class="mt-2" style="font-size: 18px; border-radius: 10px; padding: 10px;"> La autoevaluación es un método mediante el cual una persona evalúa su propio desempeño o manejo de una situación específica. Este proceso implica una reflexión interna en la que se identifican tanto las fortalezas como las áreas de mejora.</p>
+             
+            </div>
+             <div class="card mt-3">
+                <div class="header-login h2">
                     LOGIN
                 </div>
                 <div class="card-body">
@@ -70,13 +76,15 @@
                             <label for="contrasenya" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="contrasenya" name="contrasenya" autofocus value="">
                         </div>
-                        <div class="text-end">
-                            <a href="{{ url('/')}}" class="btn verde text-white  ms-1"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</a>
-                            <button type="submit" class="btn lila text-white"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+                        <div class="text-end mt-2">
+                           <a href="{{ url('/')}}" class="btn btn-cerrar verde text-white ms-1"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</a>
+
+                            <button type="submit" class="btn-guardar"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
                         </div>
                     </form>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>

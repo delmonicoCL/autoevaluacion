@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
     <title>
         @yield('titulo')
     </title>
@@ -15,11 +18,11 @@
     <link rel="stylesheet" href="{{ asset('css/autoevaluacion.css') }}" />
 </head>
 
-@if (Auth::check())
+{{-- @if (Auth::check())
     <script>
         console.log(@json(Auth::user()));
     </script>
-@endif
+@endif --}}
 
 <body>
 
@@ -49,16 +52,16 @@
                     <ul class="navbar-nav">
                         @if (Auth::check() && Auth::user()->tipus_usuaris_id == '1')
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                                <a class="nav-link dropdown-toggle font20" href="#" id="navbarDropdown1" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Datos Centrales
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                     
-                                    <li><a class="dropdown-item" href="{{ url('usuaris') }}">Usuarios</a></li>
-                                    <li><a class="dropdown-item" href="{{ url('cicles') }}">Ciclos</a></li>
-                                    <li><a class="dropdown-item" href="{{ url('moduls') }}">Módulos</a></li>
-                                    <li><a class="dropdown-item" href="#">Asignar </a></li>
+                                    <li><a class="dropdown-item font18" href="{{ url('usuaris') }}">Usuarios</a></li>
+                                    <li><a class="dropdown-item font18" href="{{ url('cicles') }}">Ciclos</a></li>
+                                    <li><a class="dropdown-item font18" href="{{ url('moduls') }}">Módulos</a></li>
+                                    <li><a class="dropdown-item font18" href="#">Asignar </a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -72,7 +75,7 @@
                         @if (Auth::check() && Auth::user()->tipus_usuaris_id == '2')
                             <!-- Menú Profesores -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                                <a class="nav-link dropdown-toggle font" href="#" id="navbarDropdown2" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Profesores
                                 </a>
@@ -91,7 +94,7 @@
                         @if (Auth::check() && Auth::user()->tipus_usuaris_id == '3')
                             <!-- Menú Alumnos -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Alumnos</a>
+                                <a class="nav-link font" href="#">Alumnos</a>
                             </li>
                         @endif
 

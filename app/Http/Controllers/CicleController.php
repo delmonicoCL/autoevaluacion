@@ -84,7 +84,7 @@ class CicleController extends Controller
             $cicle->descripcio = $request->input('descripcio');
             $cicle->actiu = $request->input('actiu');
             $cicle->save();
-            return redirect()->action([CicleController::class, 'index'])->with('success', 'Usuario creado exitosamente.');
+            return redirect()->action([CicleController::class, 'index'])->with('success', 'Ciclo Modificado exitosamente.');
         } catch (QueryException $ex) {
             // Obtener el mensaje de error utilizando la clase Utilidad
             $mensaje = Utilidad::errorMessage($ex);

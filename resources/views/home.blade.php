@@ -52,8 +52,12 @@
 
 
             <div class="col-5 custom-margin d-flex align-items-center justify-content-center">
-               <H1 style="font-size: 60px;">BIENVENIDE</H1>
+             
+                <H1 class="align-items-center" style="font-size: 60px;">AUTOEVALUACION</H1>
+                  
+                
             </div>
+            
             
             
             

@@ -40,7 +40,7 @@
                     <a href="" class="btn celeste text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Usuario
                     </a>
-                </div>
+                </div>                
             </div>
         </form>
 
@@ -89,45 +89,46 @@
                                 <span>Otro</span>
                             @endif
                         </td>
-                        <td>
+                        <td class="text-center">
                             <form class="float-right ml-1"
                                 action="{{ action([App\Http\Controllers\UsuarisController::class, 'destroy'], ['usuari' => $usuarioFiltrado->id]) }}"
                                 method="POST" onsubmit="return confirmarBorrado()">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn rojo text-white"><i class="fa fa-trash"
-                                        aria-hidden="true"></i> Borrar</button>
+                                <button type="button" class="btn btn-eliminar" data-bs-toggle="modal"
+                                    data-bs-target="#modalBorrado"><i class="fa fa-trash" aria-hidden="true"></i>
+                                    Borrar</button>
                             </form>
                             <script>
                                 function confirmarBorrado() {
-                                    return confirm("¿Estás seguro de que deseas borrar este usuario?");
+                                    $('#modalBorrado').modal('show');
+                                    return false; // Evita que el formulario se envíe automáticamente
                                 }
                             </script>
                         </td>
-                        <td>
-
-                            <form
-                                action="{{ action([App\Http\Controllers\UsuarisController::class, 'edit'], ['usuari' => $usuarioFiltrado->id]) }}"
-                                method="POST" class="float-right">
-                                @method('GET')
-                                <button type="submit" class="btn naranja text-white">
-                                    <i class="fa fa-edit" aria-hidden="true"></i> Editar
-                                </button>
-                            </form>
-                        <td>
+                        <td style="text-align: center;">
+                
+                                <a href="#" class="btn btn-enviado naranja text-white" data-bs-toggle="modal"
+                                    data-bs-target="#ModalEditarUsuario"
+                                    data-bs-whatever="{{ $usuarioFiltrado->nom_usuari}}|{{ $usuarioFiltrado->nom }}|{{ $usuarioFiltrado->cognom }}|{{ $usuarioFiltrado->contrasenya }}|{{ 
+                                    $usuarioFiltrado->tipus_usuaris_id }}|{{ 
+                                    $usuarioFiltrado->actiu }}|{{ $usuarioFiltrado->correu }}">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i> ModalUser
+                                </a>
+                         
+                        </td>
+                        <td class="text-center">
                             <form>
                                 {{-- action="{{ action([App\Http\Controllers\UsuarisController::class, 'edit'], ['usuari' => $usuarioFiltrado->id]) }}"
                                 method="POST" class="float-right">
                                 @method('GET') --}}
-                                <button type="" class="btn verde text-white">
+                                <button type="" class="btn-password">
                                     <i class="fa fa-edit" aria-hidden="true"></i> Password
                                 </button>
                             </form>
+                        </td>    
+                        
 
-                        </td>
-
-
-                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -144,53 +145,49 @@
 
         <!-- Modal Nuevo Usuario -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header d-flex justify-content-between">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Usuario</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" title="Cerrar Ventana" class="btn-cerrar" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="{{ action([App\Http\Controllers\UsuarisController::class, 'store']) }}"
                             method="POST">
                             @csrf
-                            <div class="form-group">
-                                <label for="nombre">Nombre de usuario</label>
-                                <input type="text" class="form-control" id="nombre" name="nom_usuari"
-                                    placeholder="Ingrese su nombre" required>
+                            <div class="form-group mt-2">
+                                <label for="nombre">Usuario</label>
+                                <input type="text" class="form-control" id="nom_usuari" name="nom_usuari" required>
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nom"
-                                    placeholder="Ingrese su nombre" required>
+                                <input type="text" class="form-control" id="nom" name="nom" required>
                             </div>
                             <div class="form-group">
                                 <label for="apellido">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" name="cognom"
-                                    placeholder="Ingrese su apellido" required>
+                                <input type="text" class="form-control" id="apellido" name="cognom" required>
                             </div>
                             <div class="form-group">
                                 <label for="contraseña">Contraseña</label>
-                                <input type="password" class="form-control" id="contraseña" name="contrasenya"
-                                    placeholder="Ingrese su contraseña" required>
+                                <input type="password" class="form-control" id="contraseña" name="contrasenya" required>
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo</label>
-                                <input type="email" class="form-control" id="correo" name="correu"
-                                    placeholder="Ingrese su correo" required>
+                                <input type="email" class="form-control" id="correo" name="correu" required>
                             </div>
                             <div class="form-group">
                                 <label for="estado">Estado</label>
-                                <select class="form-select" id="estado" name="actiu"
+                                <select class="form-select form-group" id="estado" name="actiu"
                                     aria-label="Default select example" required>
-                                    <option value="" selected disabled>Seleccione Estado</option>
+                                    <option class="form-group" value="" selected disabled>Seleccione Estado</option>
                                     <option value="1">Activo</option>
                                     <option value="2">No Activo</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="tipo_usuario">Tipo de Usuario</label>
-                                <select class="form-select" id="tipo_usuario" name="tipus_usuaris_id"
+                                <select class="form-select" id="tipus_usuaris_id" name="tipus_usuaris_id"
                                     aria-label="Default select example" required>
                                     <option value="" selected disabled>Seleccione Categoria</option>
                                     <option value="1">Administrador</option>
@@ -198,10 +195,8 @@
                                     <option value="3">Alumno</option>
                                 </select>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn rojo text-white"
-                                    data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn lila text-white">Guardar</button>
+                            <div class="modal-footer mt-4">
+                                <button type="submit" title="Guardar cambios" class="btn-guardar">Guardar</button>
                             </div>
                         </form>
 
@@ -209,6 +204,117 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Editar Usuario -->
+        <div class="modal fade" id="ModalEditarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between">
+                        <h4 class="modal-title" id="modalBorradoLabel">Editar Usuario</h4>
+                        <button type="button" title="Cerrar Ventana" class="btn-cerrar" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                       
+                        <form action=""  method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group">
+                                <label for="nombre">Usuario</label>
+                                <input type="text" class="form-control" id="nom_usuariUPDATE" name="nom_usuari"
+                                    value=""required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombreUPDATE" name="nom" value=""required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" class="form-control" id="apellidoUPDATE" name="cognom"
+                                    value=""required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña">Contraseña</label>
+                                <input type="password" class="form-control" id="contraseñaUPDATE" name="contrasenya"
+                                    value=""required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo</label>
+                                <input type="email" class="form-control" id="correoUPDATE" name="correu"
+                                    value=""required>
+                            </div>
+                            <div class="form-group">
+                                <label for="estado">Estado</label>
+                                <select class="form-select" id="estadoUPDATE" name="actiu" aria-label="Default select example" required>
+                                    <option value="1" >Activo</option>
+                                    <option value="2" >No Activo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo_usuario">Tipo de Usuario</label>
+                                <select class="form-select" id="tipo_usuarioUPDATE" name="tipus_usuaris_id" aria-label="Default select example" required>
+                                    <option value="1" >Administrador</option>
+                                    <option value="2" >Profesor</option>
+                                    <option value="3">Alumno</option>
+                                </select>
+                            </div>  
+                        </form>
+
+                         <div class="modal-footer mt-4">
+                                <button type="submit" title="Guardar cambios" class="btn-guardar">Guardar</button>
+                         </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de confirmación de borrado -->
+        <div class="modal fade" id="modalBorrado" tabindex="-1" aria-labelledby="modalBorradoLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-between">
+                        <h4 class="modal-title" id="modalBorradoLabel">Confirmar Borrado</h4>
+                        <button type="button" title="Cerrar Ventana" class="btn-cerrar" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>¿Estás seguro de que deseas borrar este usuario?</h5>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" title="Borrar usuario" class="btn-guardar"
+                            id="btnConfirmarBorrado">Borrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        const modalEditarUsuario = document.getElementById('ModalEditarUsuario');
+        if (modalEditarUsuario) {
+            modalEditarUsuario.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget;
+                const data = button.getAttribute('data-bs-whatever').split('|');
+                const nom_usuari = data[0];
+                const nom = data[1];
+                const cognom = data[2];
+                const contrasenya = data[3];
+                const tipus_usuaris_id = data[4];
+                const actiu = data[5];
+                const correu = data[6];
+
+                // Actualiza los campos del formulario con los datos del usuario
+                modalEditarUsuario.querySelector('#nom_usuariUPDATE').value = nom_usuari;
+                modalEditarUsuario.querySelector('#nombreUPDATE').value = nom;
+                modalEditarUsuario.querySelector('#apellidoUPDATE').value = cognom;
+                modalEditarUsuario.querySelector('#contraseñaUPDATE').value = contrasenya;
+                modalEditarUsuario.querySelector('#tipo_usuarioUPDATE').value = tipus_usuaris_id;
+                modalEditarUsuario.querySelector('#estadoUPDATE').value = actiu;
+                modalEditarUsuario.querySelector('#correoUPDATE').value = correu;
+        });
+    }
+</script>
 
 
     </div>

@@ -15,7 +15,6 @@
                 id="formularioEditar" method="POST">
                 @csrf
                 @method('PUT')
-
                 <div class="form-group">
                     <label for="nombre">Usuario</label>
                     <input type="text" class="form-control" id="nom_usuari" name="nom_usuari"
@@ -47,7 +46,6 @@
                         <option value="2" {{ $usuarios->actiu == 2 ? 'selected' : '' }}>No Activo</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="tipo_usuario">Tipo de Usuario</label>
                     <select class="form-select" id="tipo_usuario" name="tipus_usuaris_id" aria-label="Default select example" required>
@@ -55,18 +53,8 @@
                         <option value="2" {{ $usuarios->tipus_usuaris_id == 2 ? 'selected' : '' }}>Profesor</option>
                         <option value="3" {{ $usuarios->tipus_usuaris_id == 3 ? 'selected' : '' }}>Alumno</option>
                     </select>
-                </div>
-
-        </div>
-        <div class="card-footer text-end mt-5">
-            <button type="submit" class="btn lila text-white" form="formularioEditar" id="aceptar">
-                Aceptar
-            </button>
-            <a href="{{ url('usuaris') }}" class="btn naranja text-white">
-                Cancelar
-            </a>
-        </div>
+                </div>  
+             </form>
     </div>
-    </form>
-    </div>
+</div>    
 @endsection
