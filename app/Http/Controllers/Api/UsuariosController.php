@@ -2,40 +2,46 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Clases\Utilidad;
-use Illuminate\Http\Request;
-use App\Models\criteris_avaluacio;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\QueryException;
-use App\Http\Resources\CriteriosAutoevaluacionResource;
+use App\Http\Resources\UsuariosResource;
+use App\Models\usuaris;
+use Illuminate\Http\Request;
 
-class CriteriosAutoEvaluacionController extends Controller
+
+use App\Clases\Utilidad;
+use Illuminate\Database\QueryException;
+
+
+class UsuariosController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-           $criterios = criteris_avaluacio::all();
-           return CriteriosAutoevaluacionResource::collection($criterios);
+        $usuarios = usuaris::all();
+        return UsuariosResource::collection($usuarios);
+
 
     }
-    
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $criteris_avaluacio = new criteris_avaluacio();
-        $criteris_avaluacio->ordre = $request->input('ordre');
-        $criteris_avaluacio->descripcio = $request->input('descripcio');
-        $criteris_avaluacio->actiu = ($request->input('actiu') == 'actiu');
-        $criteris_avaluacio->resultats_aprenentatge_id = $request->input('resultats_aprenentatge_id');
+        $usuaris = new usuaris();
+        $usuaris->nom_usuari = $request->input('nom_usuari');
+        $usuaris->contrasenya = $request->input('contrasenya');
+        $usuaris->correu = $request->input('correu');
+        $usuaris->nom = $request->input('nom');
+        $usuaris->nom = $request->input('cognom');
+        $usuaris->actiu = ($request->input('actiu') == 'actiu');
+        $usuaris->tipus_usuaris_id = $request->input('tipus_usuaris_id');
         try {
 
-            $criteris_avaluacio->save();
-            $response = (new CriteriosAutoevaluacionResource($criteris_avaluacio))
+            $usuaris->save();
+            $response = (new UsuariosResource($usuaris))
                 ->response()
                 ->setStatusCode(201);
 
@@ -55,7 +61,7 @@ class CriteriosAutoEvaluacionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(criteris_avaluacio $criteris_avaluacio)
+    public function show(usuaris $usuaris)
     {
         //
     }
@@ -63,7 +69,7 @@ class CriteriosAutoEvaluacionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, criteris_avaluacio $criteris_avaluacio)
+    public function update(Request $request, usuaris $usuaris)
     {
         //
     }
@@ -71,7 +77,7 @@ class CriteriosAutoEvaluacionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(criteris_avaluacio $criteris_avaluacio)
+    public function destroy(usuaris $usuaris)
     {
         //
     }
