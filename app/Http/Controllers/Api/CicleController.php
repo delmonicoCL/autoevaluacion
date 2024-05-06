@@ -31,27 +31,15 @@ class CicleController extends Controller
         $cicle = new cicle();
         $cicle->sigles = $request->input('sigles');
         $cicle->descripcio = $request->input('descripcio');
+        $cicle->actiu = $request->input('actiu');
 
-        $cicle->actiu = ($request->input('actiu') == 'actiu');
-       
         try {
-         
             $cicle->save();
-            $response = (new CicleResource($cicle))
-                ->response()
-                ->setStatusCode(201);
-                        
-            // return redirect()->action([CicleController::class, 'index'])->with('success', 'Usuario creado exitosamente.'); CONTROLADOR NORMAL
-
+            return response()->json(['mensaje' => 'Registro insertado correctamente'], 201);
         } catch (QueryException $ex) {
-        
             $mensaje = Utilidad::errorMessage($ex);
-            $response = \response()
-                        ->json(['error' => $mensaje],400);
-            
-            // return redirect()->action([CicleController::class, 'index'])->with('error', $mensaje)->withInput(); CONTROLADOR NORMAL
+            return response()->json(['error' => $mensaje], 400);
         }
-        return $response;
     }
 
     /**
@@ -72,11 +60,17 @@ class CicleController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(cicle $cicle)
-    {
-        //
+{
+    try {
+        $cicle->delete();
+        $response = response()->json(['mensaje' => "Registro borrado correctamente"], 200);
+           
+    } catch (QueryException $ex) {
+        $mensaje = Utilidad::errorMessage($ex);
+        $response = response()->json(['error'=> $mensaje], 400);
     }
+    return $response; // Aquí estás devolviendo la instancia de respuesta
 }
+}
+   

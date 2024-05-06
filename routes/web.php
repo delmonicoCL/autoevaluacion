@@ -14,6 +14,11 @@ Route::get('/1', function () {
     return view('usuarios.form');
 });
 
+Route::get('ciclos', function () {
+    return view('ciclos1.index');
+
+});
+
 Route::resource('usuaris', UsuarisController::class);
 Route::resource('cicles', CicleController::class);
 Route::resource('moduls', ModulsController::class);

@@ -61,7 +61,7 @@
                                     <li><a class="dropdown-item font18" href="{{ url('usuaris') }}">Usuarios</a></li>
                                     <li><a class="dropdown-item font18" href="{{ url('cicles') }}">Ciclos</a></li>
                                     <li><a class="dropdown-item font18" href="{{ url('moduls') }}">Módulos</a></li>
-                                    <li><a class="dropdown-item font18" href="#">Asignar </a></li>
+                                    <li><a class="dropdown-item font18" href="{{ url('ciclos') }}">CICLOS VUE </a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
