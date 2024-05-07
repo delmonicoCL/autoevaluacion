@@ -94,7 +94,7 @@
                         @if (Auth::check() && Auth::user()->tipus_usuaris_id == '3')
                             <!-- Menú Alumnos -->
                             <li class="nav-item">
-                                <a class="nav-link font" href="#">Alumnos</a>
+                                <a class="nav-link font" href="{{ url('rubricas') }}">Autoevaluación</a>
                             </li>
                         @endif
 

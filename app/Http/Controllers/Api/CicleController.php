@@ -57,7 +57,18 @@ class CicleController extends Controller
      */
     public function update(Request $request, cicle $cicle)
     {
-        //
+    
+        $cicle->sigles = $request->input('sigles');
+        $cicle->descripcio = $request->input('descripcio');
+        $cicle->actiu = $request->input('actiu');
+
+        try {
+            $cicle->save();
+            return response()->json(['mensaje' => 'Registro insertado correctamente'], 201);
+        } catch (QueryException $ex) {
+            $mensaje = Utilidad::errorMessage($ex);
+            return response()->json(['error' => $mensaje], 400);
+        }
     }
 
     public function destroy(cicle $cicle)
