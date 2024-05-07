@@ -14,14 +14,6 @@ class CicleResource extends JsonResource
      */
     public function toArray($request)
     {
-
      return parent::toArray($request);
-
-        // return [
-        //     "Siglas" => $this->sigles,
-        //     "Curso" => ModulResource::collection($this->codi)
-
-        // ];
-       
     }
 }
