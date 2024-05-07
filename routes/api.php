@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CicleController;
 use App\Http\Controllers\Api\CriteriosAutoEvaluacionController;
+use App\Http\Controllers\Api\MatriculadosControllerAPI;
 use App\Http\Controllers\Api\ResultadosAprendizajeController;
 use App\Http\Controllers\Api\UsuariosController;
 use Illuminate\Http\Request;
@@ -13,8 +14,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::apiResource('usuaris_has_moduls', UserHasModulsController::class);
+// Route::apiResource('usuaris_has_moduls', UserHasModulsController::class);
 Route::apiResource('cicle', CicleController::class);
 Route::apiResource('resultats_aprenentatge', ResultadosAprendizajeController::class);
 Route::apiResource('criteris_avaluacio', CriteriosAutoEvaluacionController::class);
 Route::apiResource('usuaris', UsuariosController::class);
+
+Route::post('usuaris_has_moduls', [MatriculadosControllerAPI::class, 'store']);
+Route::delete('usuaris_has_moduls/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::class, 'destroy']);

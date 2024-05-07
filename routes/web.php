@@ -19,6 +19,12 @@ Route::get('ciclos', function () {
 
 });
 
+
+Route::get('rubricas', function () {
+    return view('rubrica.index');
+
+});
+
 Route::resource('usuaris', UsuarisController::class);
 Route::resource('cicles', CicleController::class);
 Route::resource('moduls', ModulsController::class);

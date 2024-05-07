@@ -1,3 +1,10 @@
+@if(Auth::check())
+    @php
+        header("Location:../public/home");
+        exit();
+    @endphp
+@else
+
 @extends('layouts.main1')
 
 @section('contenido')
@@ -142,3 +149,4 @@
 </script>
 
 @endsection
+@endif
