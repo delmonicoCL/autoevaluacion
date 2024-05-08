@@ -20,5 +20,5 @@ Route::apiResource('resultats_aprenentatge', ResultadosAprendizajeController::cl
 Route::apiResource('criteris_avaluacio', CriteriosAutoEvaluacionController::class);
 Route::apiResource('usuaris', UsuariosController::class);
 
-Route::post('usuaris_has_moduls', [MatriculadosControllerAPI::class, 'store']);
-Route::delete('usuaris_has_moduls/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::class, 'destroy']);
+Route::post('matricula/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::class, 'matricular']);
+Route::delete('matricula/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::class, 'desmatricular']);
