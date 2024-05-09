@@ -14,23 +14,20 @@ class MatriculadosControllerApi extends Controller
 {
 
 
-    public function getModulosUsuarioId()
-    
+    public function getModulosUsuario()
     {
-        dd('La función getModulosUsuarioId() se está llamando correctamente');
         // Obtén el ID del usuario autenticado
         $userId = Auth::id();
-
-        // Obtén los módulos del usuario autenticado
-        $userModules = Usuaris::with('moduls')->find($userId);
-        // Muestra por consola lo que devuelve $userModules
-        var_dump($userModules); // o dd($userModules) si prefieres un dump and die
-        
+    
+        // Obtén solo los módulos del usuario autenticado
+        $userModules = Usuaris::with([
+            'moduls' => function ($query) use ($userId) {
+                $query->where('usuaris_has_moduls.usuaris_id', $userId); // Filtra por usuaris_id dinámicamente
+            }
+        ])->find($userId); // Encuentra el usuario con el ID dinámico
+    
         return response()->json($userModules);
     }
-
-
-
     
 
 
@@ -42,14 +39,14 @@ class MatriculadosControllerApi extends Controller
 
     
 
-    public function getModulosUsuario85()
+    public function getModulosUsuario50()
     {
         // Obtén solo los módulos del usuario con usuaris_id 85
         $userModules = Usuaris::with([
             'moduls' => function ($query) {
-                $query->where('usuaris_has_moduls.usuaris_id', 85); // Filtra por usuaris_id 85
+                $query->where('usuaris_has_moduls.usuaris_id', 50); // Filtra por usuaris_id 50
             }
-        ])->find(85); // Encuentra el usuario con usuaris_id 85
+        ])->find(50); // Encuentra el usuario con usuaris_id 50
 
         return response()->json($userModules);
     }
