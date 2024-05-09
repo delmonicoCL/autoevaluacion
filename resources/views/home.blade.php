@@ -13,6 +13,12 @@
         }
     </style>
 
+    @if (Auth::check())
+    <script>
+        console.log(@json(Auth::user()));
+    </script>
+@endif 
+
     <div class="container mt-5">
 
 

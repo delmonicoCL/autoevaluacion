@@ -39,9 +39,7 @@ Route::get('rubricas', function () {
     return view('rubrica.index');
 
 });
-<!-- <li class="nav-item">
-<a class="nav-link font" href="{{ url('rubricas') }}">Autoevaluación</a>
-</li> -->
+
 Luego nos vamos a la vista que llamara al componente VUE, en este caso mi vista main1.blade.php
 
 

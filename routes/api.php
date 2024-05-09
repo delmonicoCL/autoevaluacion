@@ -14,7 +14,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-// Route::apiResource('usuaris_has_moduls', UserHasModulsController::class);
+// Route::apiResource('usuaris_has_moduls', MatriculadosControllerAPI::class);
 Route::apiResource('cicle', CicleController::class);
 Route::apiResource('resultats_aprenentatge', ResultadosAprendizajeController::class);
 Route::apiResource('criteris_avaluacio', CriteriosAutoEvaluacionController::class);
@@ -22,3 +22,8 @@ Route::apiResource('usuaris', UsuariosController::class);
 
 Route::post('matricula/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::class, 'matricular']);
 Route::delete('matricula/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::class, 'desmatricular']);
+
+
+Route::get('usuariosmodulos', [MatriculadosControllerAPI::class, 'getModulosUsuarios']);
+Route::get('85', [MatriculadosControllerAPI::class, 'getModulosUsuario85']);
+Route::get('moduloUsuario', [MatriculadosControllerAPI::class, 'getModulosUsuarioId']);
