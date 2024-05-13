@@ -1,4 +1,5 @@
-<div class="container mt-5">
+<template lang="">
+    <div>
         <h2>MODELO TABLA (th, th, td)</h2>
         <table class="table table-bordered">
             <thead>
@@ -59,3 +60,14 @@
             </tbody>
         </table>
     </div>
+        
+    </div>
+</template>
+<script>
+export default {
+    
+}
+</script>
+<style lang="">
+    
+</style>

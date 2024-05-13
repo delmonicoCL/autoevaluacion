@@ -42,3 +42,5 @@ Route::middleware(['auth'])->group(function () {
     });
 
 });
+
+route::get('ObtenerIdAlumno',[UsuarisController::class, 'ObtenerIdAlumno'] );

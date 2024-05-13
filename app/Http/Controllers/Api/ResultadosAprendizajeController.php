@@ -77,4 +77,11 @@ class ResultadosAprendizajeController extends Controller
     {
         //
     }
+
+    public function desplegar()
+    {
+         $resultats_aprenentatge = resultats_aprenentatge::with('criteris_avaluacio', 'criteris_avaluacio.rubriques')->get();
+        // return new ResultadosAprendizajeResource($resultats_aprenentatge); 
+        return response()->json($resultats_aprenentatge);  
+    }
 }

@@ -17,6 +17,21 @@ class UsuarisController extends Controller
      * 
      */
 
+     public function ObtenerIdAlumno()
+     {
+         // Obtenemos el usuario autenticado
+         $user = Auth::user();
+     
+         // Verificar si el usuario está autenticado
+         if ($user) {
+             // Si el usuario está autenticado, devolver su ID en formato JSON
+             return response()->json(['id' => $user->id]);
+         } else {
+             // Si el usuario no está autenticado, devolver un error 401 (No autorizado)
+             return response()->json(['error' => 'Usuario no autenticado'], 401);
+         }
+     }
+     
 
     public function showLogin()
     {

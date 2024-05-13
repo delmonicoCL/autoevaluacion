@@ -1,25 +1,38 @@
-
 <template>
   <div class="mb-5 mt-5">Componente RUBRICAS VUE</div>
-  <div>
-    <h2>Tabla de Usuarios y Módulos</h2>
+  <div class="mb-5">
+    <h2 class="mt-5">Tus Módulos para Autoevaluacion</h2>
     <table class="table">
       <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
+          <th>ID-Modulos</th>
           <th>Código</th>
           <th>Siglas</th>
           <th>Nombre del Módulo</th>
+          <th>Autoevaluar</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in usersData" :key="user.id">
-          <td>{{ user.nom }}</td>
-          <td>{{ user.cognom }}</td>
-          <td>{{ user.moduls[0].codi }}</td>
-          <td>{{ user.moduls[0].sigles }}</td>
-          <td>{{ user.moduls[0].nom }}</td>
+        <tr v-for="(modulo, index) in modulos" :key="index">
+          <td>{{ modulo.Id_Modulo }}</td>
+          <td>{{ modulo.codis }}</td>
+          <td>{{ modulo.sigles }}</td>
+          <td>{{ modulo.nom }}</td>
+          <td >
+                            <a
+                                href="#"
+                                class="btn btn-enviado naranja text-white"
+                                @click="editarCicle(cicleFiltrado)"
+                            >
+                                <i
+                                    class="fa fa-plus-circle"
+                                    aria-hidden="true"
+                                ></i>
+                                Editar
+                            </a>
+                       
+                        
+                    </td>
         </tr>
       </tbody>
     </table>
@@ -33,24 +46,53 @@ import * as bootstrap from "bootstrap";
 export default {
   data() {
     return {
-      usersData: [] // Aquí puedes pasar los datos de los usuarios desde tu backend o donde los tengas
+      usersData: [],
+      idUsuario: 0,
+      modulos: []
     };
   },
-  // Método para obtener los datos de los usuarios desde el backend, por ejemplo, mediante una llamada a tu API
+  methods: {
+
+    ObtenerIdAlumno() {
+      const me = this;
+      axios
+        .get("ObtenerIdAlumno")
+        // console.log(response)  
+        .then(response => {
+          me.idUsuario = response.data.id; // Asigna los datos de los usuarios a usersData
+          me.listarModulos()
+          //  console.log(me.idUsuario)  
+
+        })
+        .catch(error => {
+
+        });
+    },
+
+    listarModulos() {
+      const me = this;
+      axios
+        .get("api/usuarioID/" + me.idUsuario)
+
+        .then(response => {
+          me.modulos = response.data
+          console.log(me.modulos)
+        })
+        .catch(error => {
+
+        });
+    }
+
+  },
+
   created() {
 
-    const me = this;
-    axios
-      .get("usuarioAutenticadoIDmodulo")
-    // console.log(response)  
-      .then(response => {
-        me.usersData = response.data; // Asigna los datos de los usuarios a usersData
-      })
-      .catch(error => {
-        console.error('Error al obtener los datos de los usuarios:', error);
-      });
+    this.ObtenerIdAlumno()
 
-  }
+  },
+
+
+
 
 };
 </script>

@@ -53,38 +53,62 @@ class MatriculadosControllerApi extends Controller
    
 
 
+    // public function usuarioIDmodulo(Request $request, $usuaris_id)
+    // {
+    //     // Obtén solo los módulos del usuario con el ID pasado por la ruta
+    //     $userModules = Usuaris::with([
+    //         'moduls' => function ($query) use ($usuaris_id) {
+    //             $query->where('usuaris_has_moduls.usuaris_id', $usuaris_id); // Filtra por el ID pasado por la ruta
+    //         }
+    //     ])->find($usuaris_id); // Encuentra el usuario con el ID pasado por la ruta
+
+    //     return response()->json($userModules);
+    // }
+
+
     public function usuarioIDmodulo(Request $request, $usuaris_id)
-    {
-        // Obtén solo los módulos del usuario con el ID pasado por la ruta
-        $userModules = Usuaris::with([
-            'moduls' => function ($query) use ($usuaris_id) {
-                $query->where('usuaris_has_moduls.usuaris_id', $usuaris_id); // Filtra por el ID pasado por la ruta
-            }
-        ])->find($usuaris_id); // Encuentra el usuario con el ID pasado por la ruta
-
-        return response()->json($userModules);
-    }
-
-    public function usuarioAutenticadoIDmodulo(Request $request)
-    {
-        // Obtenemos el usuario autenticado
-        $user = Auth::user();
-
-        // Verificamos si el usuario está autenticado
-        if ($user) {
-            // Obtén solo los módulos del usuario autenticado
-            $userModules = Usuaris::with([
-                'moduls' => function ($query) use ($user) {
-                    $query->where('usuaris_has_moduls.usuaris_id', $user->id); // Filtra por el ID del usuario autenticado
-                }
-            ])->find($user->id); // Encuentra el usuario autenticado
-
-            return response()->json($userModules);
-        } else {
-            // Si el usuario no está autenticado, devuelve un mensaje de error
-            return response()->json(['error' => 'Usuario no autenticado'], 401);
+{
+    // Obtén solo los módulos del usuario con el ID pasado por la ruta
+    $userModules = Usuaris::with([
+        'moduls' => function ($query) use ($usuaris_id) {
+            $query->where('usuaris_has_moduls.usuaris_id', $usuaris_id); // Filtra por el ID pasado por la ruta
         }
-    }
+    ])->find($usuaris_id); // Encuentra el usuario con el ID pasado por la ruta
+
+    // Crear una nueva estructura de datos con los campos deseados
+    $formattedModules = $userModules->moduls->map(function ($modulo) {
+        return [
+           
+            'Id_Modulo' => $modulo->id,
+            'codis' => $modulo->codi,
+            'sigles' => $modulo->sigles,
+            'nom' => $modulo->nom
+        ];
+    });
+
+    // Devolver la respuesta en formato JSON
+    return response()->json($formattedModules);
+}
+    // public function usuarioAutenticadoIDmodulo(Request $request)
+    // {
+    //     // Obtenemos el usuario autenticado
+    //     $user = Auth::user();
+
+    //     // Imprimir el valor de $user por consola
+    //     var_dump($user);    
+                
+    //         $userModules = Usuaris::with([
+    //             'moduls' => function ($query) use ($user) {
+    //                 $query->where('usuaris_has_moduls.usuaris_id', $user->id); // Filtra por el ID del usuario autenticado
+    //             }
+    //         ])->find($user->id); // Encuentra el usuario autenticado
+
+    //         return response()->json($userModules);
+       
+    // }
+
+
+
 
     public function matricular(Request $request, $usuaris_id, $moduls_id)
     {

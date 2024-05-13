@@ -27,16 +27,19 @@ Route::delete('matricula/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::
 
 
 Route::get('usuariosmodulos', [MatriculadosControllerAPI::class, 'getModulosUsuarios']);
-Route::get('85', [MatriculadosControllerAPI::class, 'getModulosUsuario85']);
+
 
 Route::get('usuarioID/{usuaris_id}', [MatriculadosControllerAPI::class, 'usuarioIDmodulo']);
 Route::get('usuarioAutenticadoIDmodulo', [MatriculadosControllerAPI::class, 'usuarioAutenticadoIDmodulo']);
 
+Route::get('rubricas', [ResultadosAprendizajeController::class, 'desplegar']);
 
 
 
 
 
-Route::get('modulosusuarios', [usuariosModulosControlador::class, 'index']);
 
-Route::get('usuarios_modulos', [MatriculadosControllerAPI::class, 'getModulosUsuario']); //revisar
+// Route::get('modulosusuarios', [usuariosModulosControlador::class, 'index']);
+
+// Route::get('usuarios_modulos', [MatriculadosControllerAPI::class, 'getModulosUsuario']); //revisar
+// Route::get('85', [MatriculadosControllerAPI::class, 'getModulosUsuario85']);

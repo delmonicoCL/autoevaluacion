@@ -18,10 +18,6 @@ class rubriques extends Model
         return $this->belongsTo(criteris_avaluacio::class, 'criteris_avaluacio_id');
     }
 
-    public function criteri_avaluacio()
-    {
-        return $this->belongsTo(criteris_avaluacio::class, 'criteris_avaluacio_id');
-    }
 
 }
 

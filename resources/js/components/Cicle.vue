@@ -273,7 +273,7 @@ export default {
         updateCiclo(){
             const me = this;
             axios
-                .put('cicle/' + me.cicleFiltrado.id, me.cicleFiltrado)
+                .put('api/cicle/' + me.cicleFiltrado.id, me.cicleFiltrado)
                 .then((response) => {
                     console.log("Registro Insertado correctamente");
                     // me.isError = false;
@@ -291,7 +291,7 @@ export default {
         insertCiclo() {
             const me = this;
             axios
-                .post("cicle", me.cicleFiltrado)
+                .post("api/cicle", me.cicleFiltrado)
                 .then((response) => {
                     console.log("Registro Insertado correctamente");
                     // me.isError = false;
@@ -308,7 +308,7 @@ export default {
         selectCicles() {
             const me = this;
             axios
-            .get("cicle").then((response) => {
+            .get("api/cicle").then((response) => {
                 //console.log(response)
                 me.ciclos = response.data;
             });
@@ -317,7 +317,7 @@ export default {
         insertCiclo() {
             const me = this;
             axios
-                .post("cicle", me.cicleFiltrado)
+                .post("api/cicle", me.cicleFiltrado)
                 .then((response) => {
                     console.log("Registro Insertado correctamente");
                     me.isError = false;
@@ -340,7 +340,7 @@ export default {
         deleteCiclo() {
             const me = this;
             axios
-                .delete(`cicle/${me.cicleFiltrado.id}`)
+                .delete(`api/cicle/${me.cicleFiltrado.id}`)
                 .then((response) => {
                     console.log("Registro eliminado correctamente");
                     me.isError = false; // Establecer isError como false

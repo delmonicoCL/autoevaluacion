@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="{{ asset('css/autoevaluacion.css') }}" />
 </head>
 
- @if (Auth::check())
+ {{-- @if (Auth::check())
     <script>
         console.log(@json(Auth::user()));
     </script>
-@endif 
+@endif  --}}
 
 <body>
 
