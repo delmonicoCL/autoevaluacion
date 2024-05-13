@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CriteriosAutoEvaluacionController;
 use App\Http\Controllers\Api\MatriculadosControllerAPI;
 use App\Http\Controllers\Api\ResultadosAprendizajeController;
 use App\Http\Controllers\Api\UsuariosController;
+use App\Http\Controllers\Api\usuariosModulosControlador;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserHasModulsController;
@@ -16,6 +17,7 @@ Route::get('/user', function (Request $request) {
 
 // Route::apiResource('usuaris_has_moduls', MatriculadosControllerAPI::class);
 Route::apiResource('cicle', CicleController::class);
+
 Route::apiResource('resultats_aprenentatge', ResultadosAprendizajeController::class);
 Route::apiResource('criteris_avaluacio', CriteriosAutoEvaluacionController::class);
 Route::apiResource('usuaris', UsuariosController::class);
@@ -25,6 +27,16 @@ Route::delete('matricula/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::
 
 
 Route::get('usuariosmodulos', [MatriculadosControllerAPI::class, 'getModulosUsuarios']);
-Route::get('50', [MatriculadosControllerAPI::class, 'getModulosUsuario50']);
+Route::get('85', [MatriculadosControllerAPI::class, 'getModulosUsuario85']);
 
-Route::get('usuarios_modulos', [MatriculadosControllerAPI::class, 'getModulosUsuario']);
+Route::get('usuarioID/{usuaris_id}', [MatriculadosControllerAPI::class, 'usuarioIDmodulo']);
+Route::get('usuarioAutenticadoIDmodulo', [MatriculadosControllerAPI::class, 'usuarioAutenticadoIDmodulo']);
+
+
+
+
+
+
+Route::get('modulosusuarios', [usuariosModulosControlador::class, 'index']);
+
+Route::get('usuarios_modulos', [MatriculadosControllerAPI::class, 'getModulosUsuario']); //revisar

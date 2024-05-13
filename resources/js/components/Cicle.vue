@@ -262,7 +262,7 @@ export default {
             this.myModal.show();
         },
 
-          editarCicle(cicleFiltrado) {
+        editarCicle(cicleFiltrado) {
             this.insert = false
             // this.isError = false;
             this.cicleFiltrado = cicleFiltrado
@@ -309,7 +309,7 @@ export default {
             const me = this;
             axios
             .get("cicle").then((response) => {
-                // console.log(response)
+                //console.log(response)
                 me.ciclos = response.data;
             });
         },
@@ -354,7 +354,6 @@ export default {
                 });
         },
     },
-
     created() {
         this.selectCicles();
     },
