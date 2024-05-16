@@ -22,7 +22,7 @@
                             <a
                                 href="#"
                                 class="btn btn-enviado naranja text-white"
-                                @click="editarCicle(cicleFiltrado)"
+                                @click="listaRubricas(modulo.Id_Modulo)"
                             >
                                 <i
                                     class="fa fa-plus-circle"
@@ -37,18 +37,30 @@
       </tbody>
     </table>
   </div>
+
+<CompHijo :rubricas='rubricas'></CompHijo>
+  
 </template>
 
 
 <script>
+import CompHijo from './rubrica-modulos.vue';
+
+
 import axios from 'axios';
 import * as bootstrap from "bootstrap";
 export default {
+  components: {
+    CompHijo
+  },
   data() {
     return {
       usersData: [],
       idUsuario: 0,
-      modulos: []
+      modulos: [],
+      rubricas:[],
+      modulo:{},
+      modulo_id:0,
     };
   },
   methods: {
@@ -68,7 +80,6 @@ export default {
 
         });
     },
-
     listarModulos() {
       const me = this;
       axios
@@ -76,12 +87,28 @@ export default {
 
         .then(response => {
           me.modulos = response.data
-          console.log(me.modulos)
+          // console.log(me.modulos)
         })
         .catch(error => {
 
         });
-    }
+    },
+    listaRubricas(modulo_id){
+            const me = this;
+            console.log(modulo_id);
+            axios
+                .get("api/rubricas/" + modulo_id)
+                .then((response) => {
+                  me.rubricas = response.data;
+                  console.log(response)
+                })
+                .catch((error) => {
+                    console.error(error.response.data); // Imprime el mensaje de error en la consola
+                    me.isError = true; // Establecer isError como true
+                    me.messageError = error.response.data.error;
+                });
+
+        },
 
   },
 

@@ -1,4 +1,9 @@
 <template lang="">
+
+<tr v-for="rubrica in rubricas">
+    <td>{{ rubrica.descripcio }}</td>
+
+</tr>
     <div>
            <table class="table table-bordered mt-4">
             <thead>
@@ -12,30 +17,9 @@
                 </tr>
             </thead>
             <tbody>
+               
                 <tr>
-                    <td rowspan="3">Entendre arquitectura client/servidor i coneixer el principals llenguatgs i eines de programació en entorn servidor.</td>
-                    <td>Diferenciar l'execució de codi al servidor i al client web, i les diferents arquitectures d'entorn servidor.</td>
-                    <td>Entenc la diferència entre l'execució de codi a un servidor i a un client web.ber</td>
-                    <td>A més, conec les problemàtiques que poden sorgir a l'hora d'executar codi en una o altra banda.</td>
-                    <td>A més, donada una funcionalitat, Soc capaç de saber si s'ha d'implementar el codi al servidor o al client web.</td>
-                    <td>nota 3</td>
-                </tr>
-                <tr>
-                    <td> Criterio Evaluacion 2</td>
-                    <td>Objetivo 1</td>
-                    <td>Objetivo 2</td>
-                    <td>Objetivo 3</td>
-                    <td>nota </td>
-                </tr>
-                <tr>
-                    <td> Criterio Evaluacion 3</td>
-                    <td>Objetivo 1</td>
-                    <td>Objetivo 2</td>
-                    <td>Objetivo 3</td>
-                    <td>nota </td>
-                </tr>
-                <tr>
-                    <td rowspan="3">Resultado 2</td>
+                    <td rowspan="3">Resultado 1</td>
                     <td> Criterio Evaluacion 1</td>
                     <td>Objetivo 1</td>
                     <td>Objetivo 2</td>
@@ -64,9 +48,17 @@
 </template>
 <script>
 export default {
-
+  props: {
+    rubricas : {}
+  },
+  methods: {
+    // enviarMensajeAlPadre() {
+    //   this.$emit('nom', 'Rebeca');
+    // }
+  }
 }
 </script>
+
 <style lang="">
 
 </style>
