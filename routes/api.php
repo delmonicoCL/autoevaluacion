@@ -33,6 +33,7 @@ Route::get('usuarioID/{usuaris_id}', [MatriculadosControllerAPI::class, 'usuario
 Route::get('usuarioAutenticadoIDmodulo', [MatriculadosControllerAPI::class, 'usuarioAutenticadoIDmodulo']);
 
 Route::get('rubricas', [ResultadosAprendizajeController::class, 'desplegar']);
+Route::get('rubricas/{moduls_id}', [ResultadosAprendizajeController::class, 'desplegarModul']);
 
 
 

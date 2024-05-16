@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-5 mt-5">Componente RUBRICAS VUE</div>
+  
   <div class="mb-5">
-    <h2 class="mt-5">Tus Módulos para Autoevaluacion</h2>
+   
     <table class="table">
       <thead>
         <tr>

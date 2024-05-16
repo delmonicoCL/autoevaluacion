@@ -80,8 +80,22 @@ class ResultadosAprendizajeController extends Controller
 
     public function desplegar()
     {
-         $resultats_aprenentatge = resultats_aprenentatge::with('criteris_avaluacio', 'criteris_avaluacio.rubriques')->get();
-        // return new ResultadosAprendizajeResource($resultats_aprenentatge); 
-        return response()->json($resultats_aprenentatge);  
+         $resultats_aprenentatge = resultats_aprenentatge::with('criteris_avaluacio', 'criteris_avaluacio.rubriques')
+         ->where('moduls_id', 7)
+         ->get();
+         return response()->json($resultats_aprenentatge);  
     }
+
+
+    public function desplegarModul($moduls_id)
+    {
+        // Filtra los registros por el moduls_id pasado el valor a la funcion
+        $resultats_aprenentatge = resultats_aprenentatge::with('criteris_avaluacio', 'criteris_avaluacio.rubriques')
+            ->where('moduls_id', $moduls_id)
+            ->get();
+        
+        return response()->json($resultats_aprenentatge);
+    }
+
 }
+
