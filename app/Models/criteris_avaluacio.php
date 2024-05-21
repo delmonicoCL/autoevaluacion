@@ -29,5 +29,10 @@ class criteris_avaluacio extends Model
         return $this->belongsToMany(usuaris::class, 'alumnes_has_criteris_avaluacio', 'criteris_avaluacio_id', 'usuaris_id')->withPivot('nota');
     }
 
+    // Nueva relación
+    public function alumnesHasCriterisAvaluacio()
+    {
+        return $this->hasMany(alumnes_has_criteris_avaluacio::class, 'criteris_avaluacio_id');
+    }
 
 }

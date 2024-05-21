@@ -22,8 +22,7 @@
                             <a
                                 href="#"
                                 class="btn btn-enviado naranja text-white"
-                                @click="listaRubricas(modulo.Id_Modulo)"
-                            >
+                                @click="listaRubricas( modulo.Id_Modulo,idUsuario)"  >
                                 <i
                                     class="fa fa-plus-circle"
                                     aria-hidden="true"
@@ -58,7 +57,10 @@ export default {
       usersData: [],
       idUsuario: 0,
       modulos: [],
-      rubricas:[],
+      rubricas: [],
+      criterios: [],
+      // usuaris_id: {},
+
       modulo:{},
       modulo_id:0,
     };
@@ -107,8 +109,23 @@ export default {
                     me.isError = true; // Establecer isError como true
                     me.messageError = error.response.data.error;
                 });
-
-        },
+    },
+    listaRubricas1(modulo_id, idUsuario) {
+      const me = this;
+      console.log(modulo_id, idUsuario);
+      axios
+        .get(`api/rubricas/${modulo_id}/${idUsuario}`)
+        
+        .then((response) => {
+          me.rubricas = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error.response.data); // Imprime el mensaje de error en la consola
+          me.isError = true; // Establecer isError como true
+          me.messageError = error.response.data.error;
+        });
+    },
 
   },
 

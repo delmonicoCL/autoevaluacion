@@ -25,6 +25,12 @@ Route::get('rubricas', function () {
 
 });
 
+Route::get('rubricas-profesor', function () {
+    return view('profesor.index');
+
+});
+
+
 Route::resource('usuaris', UsuarisController::class);
 Route::resource('cicles', CicleController::class);
 Route::resource('moduls', ModulsController::class);

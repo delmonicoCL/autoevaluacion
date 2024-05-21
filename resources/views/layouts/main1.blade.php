@@ -87,7 +87,7 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="#">Autoevaluación alumnos</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('rubricas-profesor') }}">Autoevaluación alumnos</a></li>
                                 </ul>
                             </li>
                         @endif

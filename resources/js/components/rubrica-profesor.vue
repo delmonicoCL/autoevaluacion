@@ -3,13 +3,14 @@
         <table>
             <thead>
                 <tr>
-                    <th class="text-white" style="background-color:#2299c6;">Resultado</th>
+                    <th class="text-white" style="background-color:#2299c6;">Resultadoxxx</th>
                     <th class="text-white" style="background-color:#774992;">Criterios</th>
                     <th class="text-white" style="background-color:#ef882d;">Objetivos1</th>
                     <th class="text-white" style="background-color:#ef882d;">Objetivos2</th>
                     <th class="text-white" style="background-color:#ef882d;">Objetivos3</th>
-                    <th class="text-white" style="background-color:#c80922;">NOTA</th>
-                    
+                    <th class="text-white" style="background-color:#c80922;">Evaluacion</th>
+
+
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +38,9 @@
 
 <style scoped>
 .centered {
-    text-align: center;    
+    text-align: center;
 }
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -59,21 +61,15 @@ th {
 <script>
 export default {
     props: {
-        rubricas: {
-            type: Array,
-            required: true
-        }
+        rubricas: {}
     },
-    watch: {
-        rubricas(newValue, oldValue) {
-            console.log('Nuevas rubricas:', newValue);
-            console.log('Rubricas antiguas:', oldValue);
-            // Aquí puedes actualizar la tabla o realizar otras acciones necesarias
-        }
+    methods: {
+        // enviarMensajeAlPadre() {
+        //   this.$emit('nom', 'Rebeca');
+        // }
     }
 }
 </script>
-
 
 <style lang="">
 

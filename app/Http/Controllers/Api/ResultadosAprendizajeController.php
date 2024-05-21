@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Clases\Utilidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\resultats_aprenentatge;
 use Illuminate\Database\QueryException;
@@ -87,15 +88,67 @@ class ResultadosAprendizajeController extends Controller
     }
 
 
-    public function desplegarModul($moduls_id)
-    {
-        // Filtra los registros por el moduls_id pasado el valor a la funcion
-        $resultats_aprenentatge = resultats_aprenentatge::with('criteris_avaluacio', 'criteris_avaluacio.rubriques')
-            ->where('moduls_id', $moduls_id)
-            ->get();
-        
-        return response()->json($resultats_aprenentatge);
-    }
+// public function desplegarModul($moduls_id)
+// {
+//     $resultats_aprenentatge = resultats_aprenentatge::select('id', 'descripcio')
+//         ->with(['criteris_avaluacio' => function ($query) {
+//             $query->select('id', 'descripcio', 'resultats_aprenentatge_id');
+//         }, 'criteris_avaluacio.rubriques' => function ($query) {
+//             $query->select('id', 'descripcio', 'criteris_avaluacio_id');
+//         }])
+//         ->where('moduls_id', $moduls_id)
+//         ->get();
+    
+//     return response()->json($resultats_aprenentatge);
+// }
 
+
+    // public function desplegarModul($moduls_id)
+    //  {
+       
+    //       $resultats_aprenentatge = resultats_aprenentatge::with('criteris_avaluacio', 'criteris_avaluacio.rubriques')
+    //           ->where('moduls_id', $moduls_id)
+    //           ->get();
+        
+    //       return response()->json($resultats_aprenentatge);
+    //   }
+
+    
+
+
+     public function desplegarModul($moduls_id)
+     {
+         // Filtra los registros por el moduls_id pasado a la función
+         $resultats_aprenentatge = resultats_aprenentatge::with([
+             'criteris_avaluacio',
+             'criteris_avaluacio.rubriques',
+             'criteris_avaluacio.alumnesHasCriterisAvaluacio'
+         ])->where('moduls_id', $moduls_id)->get();
+
+         return response()->json($resultats_aprenentatge);
+     }
+
+
+public function desplegarModul1($moduls_id, $usuaris_id)
+{
+    $resultats_aprenentatge = resultats_aprenentatge::with([
+        'criteris_avaluacio' => function ($query) use ($usuaris_id) {
+            // Seleccionamos solo los criterios relacionados con el usuario específico
+            $query->select('id', 'descripcio', 'resultats_aprenentatge_id')
+                  ->whereHas('alumnesHasCriterisAvaluacio', function ($subquery) use ($usuaris_id) {
+                      $subquery->where('usuaris_id', $usuaris_id);
+                  });
+        },
+        'criteris_avaluacio.rubriques',
+        'criteris_avaluacio.alumnesHasCriterisAvaluacio' => function ($query) use ($usuaris_id) {
+            // Filtra los campos de la relación alumnesHasCriterisAvaluacio
+            $query->select('usuaris_id', 'criteris_avaluacio_id', 'nota')
+                  ->where('usuaris_id', $usuaris_id);
+        }
+    ])->where('moduls_id', $moduls_id)->get();
+
+    return response()->json($resultats_aprenentatge);
 }
 
+
+}
