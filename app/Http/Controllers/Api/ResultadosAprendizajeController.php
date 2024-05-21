@@ -116,39 +116,74 @@ class ResultadosAprendizajeController extends Controller
     
 
 
-     public function desplegarModul($moduls_id)
-     {
-         // Filtra los registros por el moduls_id pasado a la función
+    public function desplegarModulUNO($moduls_id, $idUsuario)
+    {
+        // Filtra los registros por el moduls_id y el id_usuario pasado a la función
+        $resultats_aprenentatge = resultats_aprenentatge::with([
+            'criteris_avaluacio',
+            'criteris_avaluacio.rubriques',
+            'criteris_avaluacio.alumnesHasCriterisAvaluacio' => function ($query) use ($idUsuario) {
+                $query->where('usuaris_id', $idUsuario);
+            }
+        ])->where('moduls_id', $moduls_id)->get();
+    
+        return response()->json($resultats_aprenentatge);
+    }
+    
+
+
+
+  public function desplegarModul($moduls_id)
+    {
+       // Filtra los registros por el moduls_id pasado a la función
          $resultats_aprenentatge = resultats_aprenentatge::with([
              'criteris_avaluacio',
-             'criteris_avaluacio.rubriques',
-             'criteris_avaluacio.alumnesHasCriterisAvaluacio'
+             'criteris_avaluacio.rubriques'
          ])->where('moduls_id', $moduls_id)->get();
 
          return response()->json($resultats_aprenentatge);
      }
 
 
-public function desplegarModul1($moduls_id, $usuaris_id)
+// public function desplegarModulTODOS($moduls_id, $usuaris_id)
+// {
+//     $resultats_aprenentatge = resultats_aprenentatge::with([
+//         'criteris_avaluacio' => function ($query) use ($usuaris_id) {
+//             // Seleccionamos solo los criterios relacionados con el usuario específico
+//             $query->select('id', 'descripcio', 'resultats_aprenentatge_id')
+//                   ->whereHas('alumnesHasCriterisAvaluacio', function ($subquery) use ($usuaris_id) {
+//                       $subquery->where('usuaris_id', $usuaris_id);
+//                   });
+//         },
+//         'criteris_avaluacio.rubriques',
+//         'criteris_avaluacio.alumnesHasCriterisAvaluacio' => function ($query) use ($usuaris_id) {
+//             // Filtra los campos de la relación alumnesHasCriterisAvaluacio
+//             $query->select('usuaris_id', 'criteris_avaluacio_id', 'nota')
+//                   ->where('usuaris_id', $usuaris_id);
+//         }
+//     ])->where('moduls_id', $moduls_id)->get();
+
+//     return response()->json($resultats_aprenentatge);
+// }
+
+public function desplegarModulTODOS($moduls_id, $usuaris_id)
 {
     $resultats_aprenentatge = resultats_aprenentatge::with([
         'criteris_avaluacio' => function ($query) use ($usuaris_id) {
-            // Seleccionamos solo los criterios relacionados con el usuario específico
-            $query->select('id', 'descripcio', 'resultats_aprenentatge_id')
-                  ->whereHas('alumnesHasCriterisAvaluacio', function ($subquery) use ($usuaris_id) {
-                      $subquery->where('usuaris_id', $usuaris_id);
-                  });
-        },
-        'criteris_avaluacio.rubriques',
-        'criteris_avaluacio.alumnesHasCriterisAvaluacio' => function ($query) use ($usuaris_id) {
-            // Filtra los campos de la relación alumnesHasCriterisAvaluacio
-            $query->select('usuaris_id', 'criteris_avaluacio_id', 'nota')
-                  ->where('usuaris_id', $usuaris_id);
+            $query->with(['rubriques', 'alumnesHasCriterisAvaluacio' => function ($subquery) use ($usuaris_id) {
+                $subquery->select('usuaris_id', 'criteris_avaluacio_id', 'nota')
+                         ->where('usuaris_id', $usuaris_id);
+            }])->whereHas('alumnesHasCriterisAvaluacio', function ($subquery) use ($usuaris_id) {
+                $subquery->where('usuaris_id', $usuaris_id);
+            });
         }
     ])->where('moduls_id', $moduls_id)->get();
 
+    // var_dump($resultats_aprenentatge);
     return response()->json($resultats_aprenentatge);
+    
 }
+
 
 
 }

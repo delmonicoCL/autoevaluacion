@@ -10,6 +10,7 @@
           <th>Siglas</th>
           <th>Nombre del Módulo</th>
           <th>Autoevaluar</th>
+         
         </tr>
       </thead>
       <tbody>
@@ -31,13 +32,13 @@
                             </a>
                        
                         
-                    </td>
+                    </td>                    
         </tr>
       </tbody>
     </table>
   </div>
 
-<CompHijo :rubricas='rubricas'></CompHijo>
+<CompHijo :rubricas='rubricas' :idUsuario='idUsuario'></CompHijo>
   
 </template>
 
@@ -95,37 +96,24 @@ export default {
 
         });
     },
-    listaRubricas(modulo_id){
-            const me = this;
-            console.log(modulo_id);
-            axios
-                .get("api/rubricas/" + modulo_id)
-                .then((response) => {
-                  me.rubricas = response.data;
-                  console.log(response)
-                })
-                .catch((error) => {
-                    console.error(error.response.data); // Imprime el mensaje de error en la consola
-                    me.isError = true; // Establecer isError como true
-                    me.messageError = error.response.data.error;
-                });
-    },
-    listaRubricas1(modulo_id, idUsuario) {
-      const me = this;
-      console.log(modulo_id, idUsuario);
-      axios
-        .get(`api/rubricas/${modulo_id}/${idUsuario}`)
-        
+  
+
+    listaRubricas(modulo_id, idUsuario) {
+    const me = this;
+    console.log(modulo_id, idUsuario);
+    axios
+        .get(`api/rubric/${modulo_id}/${idUsuario}`)
         .then((response) => {
-          me.rubricas = response.data;
-          console.log(response);
+            me.rubricas = response.data;
+            console.log(response);
         })
         .catch((error) => {
-          console.error(error.response.data); // Imprime el mensaje de error en la consola
-          me.isError = true; // Establecer isError como true
-          me.messageError = error.response.data.error;
+            console.error(error.response.data); // Imprime el mensaje de error en la consola
+            me.isError = true; // Establecer isError como true
+            me.messageError = error.response.data.error;
         });
-    },
+},
+
 
   },
 
