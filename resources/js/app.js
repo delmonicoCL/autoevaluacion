@@ -28,8 +28,8 @@ import { createApp } from "vue";
 import ciclos from "./components/Cicle.vue";
 import rubrica from "./components/Rubrica.vue";
 import modulos from "./components/rubrica-modulos.vue";
-import rubriAlumnos from "./components/rubrica-alumnos.vue"; // Asegúrate de que la ruta es correcta
-import rubriProfesor from "./components/rubrica-profesor.vue";
+import Alumnos from "./components/profesor-alumno.vue"; 
+import Profesor from "./components/profesor.vue";
 
 // Crear la instancia de Vue
 const app = createApp({});
@@ -38,8 +38,8 @@ const app = createApp({});
 app.component("Ciclos", ciclos);
 app.component("Rubrica", rubrica);
 app.component("Modulos", modulos);
-app.component("RubriAlumnos", rubriAlumnos); // Usa "RubriAlumnos" como el nombre del componente
-app.component("RubriProfesor", rubriProfesor);
+app.component("Alumnos", Alumnos); 
+app.component("Profesor", Profesor);
 
 // Montar la instancia de Vue en el contenedor principal
 app.mount("#app");

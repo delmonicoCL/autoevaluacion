@@ -85,8 +85,8 @@
                 <input type="password" class="form-control" id="contrasenya" name="contrasenya" autofocus value="">
             </div>
             <div class="text-end mt-2">
-                <a href="{{ url('/')}}" class="btn btn-cerrar verde text-white ms-1"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</a>
-                <button type="submit" class="btn-guardar"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+                
+                <button type="submit" class="btn-enviado"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
             </div>
         </form>
     </div>

@@ -3,14 +3,12 @@
         <table>
             <thead>
                 <tr>
-                    <th class="text-white" style="background-color:#2299c6;">Resultadoxxx</th>
+                    <th class="text-white" style="background-color:#2299c6;">Resultado</th>
                     <th class="text-white" style="background-color:#774992;">Criterios</th>
                     <th class="text-white" style="background-color:#ef882d;">Objetivos1</th>
                     <th class="text-white" style="background-color:#ef882d;">Objetivos2</th>
                     <th class="text-white" style="background-color:#ef882d;">Objetivos3</th>
-                    <th class="text-white" style="background-color:#c80922;">Evaluacion</th>
-
-
+                    <th class="text-white" style="background-color:#c80922;">NOTA</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +19,7 @@
                         <td class="centered">{{ rubrica.criteris_avaluacio[0]?.rubriques[0]?.descripcio ?? '' }}</td>
                         <td class="centered">{{ rubrica.criteris_avaluacio[0]?.rubriques[1]?.descripcio ?? '' }}</td>
                         <td class="centered">{{ rubrica.criteris_avaluacio[0]?.rubriques[2]?.descripcio ?? '' }}</td>
+                        <td class="centered fontsize">{{rubrica.criteris_avaluacio[0].alumnes_has_criteris_avaluacio[0].nota ?? '' }}</td>
 
                     </tr>
                     <tr v-for="(criterio, index) in rubrica.criteris_avaluacio.slice(1)" :key="criterio.id">
@@ -28,6 +27,7 @@
                         <td class="centered">{{ criterio.rubriques[0]?.descripcio ?? '' }}</td>
                         <td class="centered">{{ criterio.rubriques[1]?.descripcio ?? '' }}</td>
                         <td class="centered">{{ criterio.rubriques[2]?.descripcio ?? '' }}</td>
+                        <td class="centered fontsize">{{ criterio.alumnes_has_criteris_avaluacio[0].nota ?? '' }}</td>
 
                     </tr>
                 </template>
@@ -36,10 +36,29 @@
     </div>
 </template>
 
+<script>
+export default {
+    name: 'ResultadosRubrica',
+    props: {
+        rubricas: {
+            type: Array,
+            required: true
+        }
+    }
+};
+</script>
+
 <style scoped>
 .centered {
     text-align: center;
 }
+
+.fontsize{
+font-size: 20px;
+
+}
+
+
 
 table {
     border-collapse: collapse;
@@ -56,21 +75,4 @@ td {
 th {
     background-color: #f2f2f2;
 }
-</style>
-
-<script>
-export default {
-    props: {
-        rubricas: {}
-    },
-    methods: {
-        // enviarMensajeAlPadre() {
-        //   this.$emit('nom', 'Rebeca');
-        // }
-    }
-}
-</script>
-
-<style lang="">
-
 </style>

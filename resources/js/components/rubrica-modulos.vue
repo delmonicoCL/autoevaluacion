@@ -3,7 +3,7 @@
         <table>
             <thead>
                 <tr>
-                    <th class="text-white" style="background-color:#2299c6;">Resultado</th>
+                    <th class="text-white" style="background-color:#2299c6;">Resultadox</th>
                     <th class="text-white" style="background-color:#774992;">Criterios</th>
                     <th class="text-white" style="background-color:#ef882d;">Objetivos1</th>
                     <th class="text-white" style="background-color:#ef882d;">Objetivos2</th>
@@ -20,10 +20,9 @@
                         <td class="centered">{{ rubrica.criteris_avaluacio[0]?.rubriques[1]?.descripcio ?? '' }}</td>
                         <td class="centered">{{ rubrica.criteris_avaluacio[0]?.rubriques[2]?.descripcio ?? '' }}</td>
                         <td class="centered">
-                            <input 
-                                type="number" 
+                            <input type="number" name="nota"
                                 v-model="rubrica.criteris_avaluacio[0].alumnes_has_criteris_avaluacio[0].nota"
-                            >
+                                @change="actualizarNota(rubrica)">
                         </td>
                     </tr>
                     <tr v-for="(criterio, index) in rubrica.criteris_avaluacio.slice(1)" :key="criterio.id">
@@ -32,10 +31,8 @@
                         <td class="centered">{{ criterio.rubriques[1]?.descripcio ?? '' }}</td>
                         <td class="centered">{{ criterio.rubriques[2]?.descripcio ?? '' }}</td>
                         <td class="centered">
-                            <input 
-                                type="number" 
-                                v-model="criterio.alumnes_has_criteris_avaluacio[0].nota"
-                            >
+                            <input type="number" name="nota" v-model="criterio.alumnes_has_criteris_avaluacio[0].nota"
+                                @change="actualizarNota(criterio)">
                         </td>
                     </tr>
                 </template>
@@ -44,10 +41,45 @@
     </div>
 </template>
 
+<script>
+import axios from 'axios';
+
+export default {
+    props: {
+        rubricas: {
+            type: Array,
+            required: true
+        },
+        idUsuario: {
+            type: Number,
+            required: true
+        }
+    },
+    methods: {
+        actualizarNota(item) {
+            const me = this;
+            axios.put('/api/actualizar-nota', {
+                usuaris_id: me.idUsuario,
+                criteris_avaluacio_id: item.criteris_avaluacio[0].id,
+                nota: item.criteris_avaluacio[0].alumnes_has_criteris_avaluacio[0].nota
+            })
+                .then(response => {
+                    console.log('Nota actualizada con éxito');
+                })
+                .catch(error => {
+                    console.error('Error actualizando la nota DESDE VUE:', error);
+                });
+        }
+    }
+}
+</script>
+
+
 <style scoped>
 .centered {
-    text-align: center;    
+    text-align: center;
 }
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -64,21 +96,3 @@ th {
     background-color: #f2f2f2;
 }
 </style>
-
-<script>
-export default {
-    props: {
-        rubricas: {
-            type: Array,
-            required: true
-        }
-    },
-    watch: {
-        rubricas(newValue, oldValue) {
-            console.log('Nuevas rubricas:', newValue);
-            console.log('Rubricas antiguas:', oldValue);
-            // Aquí puedes actualizar la tabla o realizar otras acciones necesarias
-        }
-    }
-}
-</script>

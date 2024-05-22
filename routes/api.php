@@ -43,9 +43,18 @@ Route::get('rubri/{moduls_id}/{usuaris_id}', [ResultadosAprendizajeController::c
 
 
 
+Route::post('nota/{idUsuario}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'actualizarNota']);
+
+
+Route::post('nota/{idUsuario}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'nota']);
 
 
 
+
+Route::put('/actualizar-nota', [ResultadosAprendizajeController::class, 'actualizarNota']);
+
+
+Route::get('/modulos/{modulsId}/usuarios', [MatriculadosControllerAPI::class, 'getUsuariosInscritos']);
 
 
 // Route::get('modulosusuarios', [usuariosModulosControlador::class, 'index']);
