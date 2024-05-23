@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
+use App\Models\usuaris;
 use App\Clases\Utilidad;
-use App\Models\alumnes_has_criteris_avaluacio;
 use Illuminate\Http\Request;
+use App\Models\criteris_avaluacio;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\resultats_aprenentatge;
 use Illuminate\Database\QueryException;
+use App\Models\alumnes_has_criteris_avaluacio;
 use App\Http\Resources\ResultadosAprendizajeResource;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 
@@ -82,128 +86,121 @@ class ResultadosAprendizajeController extends Controller
         //
     }
 
-    public function desplegar()
-    {
-         $resultats_aprenentatge = resultats_aprenentatge::with('criteris_avaluacio', 'criteris_avaluacio.rubriques')
-         ->where('moduls_id', 7)
-         ->get();
-         return response()->json($resultats_aprenentatge);  
-    }
-
-    public function desplegarModulUNO($moduls_id, $idUsuario)
-    {
-        // Filtra los registros por el moduls_id y el id_usuario pasado a la función
-        $resultats_aprenentatge = resultats_aprenentatge::with([
-            'criteris_avaluacio',
-            'criteris_avaluacio.rubriques',
-            'criteris_avaluacio.alumnesHasCriterisAvaluacio' => function ($query) use ($idUsuario) {
-                $query->where('usuaris_id', $idUsuario);
-            }
-        ])->where('moduls_id', $moduls_id)->get();
-    
-        return response()->json($resultats_aprenentatge);
-    }
-    
-
-
-
-  public function desplegarModul($moduls_id)
-    {
-       // Filtra los registros por el moduls_id pasado a la función
-         $resultats_aprenentatge = resultats_aprenentatge::with([
-             'criteris_avaluacio',
-             'criteris_avaluacio.rubriques'
-         ])->where('moduls_id', $moduls_id)->get();
-
-         return response()->json($resultats_aprenentatge);
-     }
-
-
-
-public function desplegarModulTODOS($moduls_id, $usuaris_id)
-{
-    $resultats_aprenentatge = resultats_aprenentatge::with([
-        'criteris_avaluacio' => function ($query) use ($usuaris_id) {
-            $query->with(['rubriques', 'alumnesHasCriterisAvaluacio' => function ($subquery) use ($usuaris_id) {
-                $subquery->select('usuaris_id', 'criteris_avaluacio_id', 'nota')
-                         ->where('usuaris_id', $usuaris_id);
-            }])->whereHas('alumnesHasCriterisAvaluacio', function ($subquery) use ($usuaris_id) {
-                $subquery->where('usuaris_id', $usuaris_id);
-            });
-        }
-    ])->where('moduls_id', $moduls_id)->get();
-
-    // var_dump($resultats_aprenentatge);
-    return response()->json($resultats_aprenentatge);
-    
-}
-
-
-    public function actualizarNota(Request $request)
-    {
-        // Valida los datos recibidos en la solicitud
-        $request->validate([
-            'usuaris_id' => 'required|integer',
-            'criteris_avaluacio_id' => 'required|integer',
-            'nota' => 'required|numeric'
-        ]);
-
-        try {
-            // Actualiza la nota en la tabla correspondiente
-            alumnes_has_criteris_avaluacio::updateOrCreate(
-                [
-                    'usuaris_id' => $request->usuaris_id,
-                    'criteris_avaluacio_id' => $request->criteris_avaluacio_id
-                ],
-                ['nota' => $request->nota]
-            );
-
-            // Devuelve una respuesta exitosa
-            return response()->json(['message' => 'Nota actualizada con éxito'], 200);
-        } catch (\Exception $e) {
-            // Devuelve un mensaje de error en caso de fallo
-            return response()->json(['error' => 'Error al actualizar la notas DESDE CONTROLADOR'], 500);
-        }
-    }
-
-
-
-    // public function actualizarNota(Request $request,$usuaris_id,$criteris_avaluacio_id,$nota)
+    // public function desplegar()
     // {
-    //     // Valida los datos de la solicitud
-    //     $request->validate([
-    //         'usuaris_id' => 'required',
-    //         'criteris_avaluacio_id' => 'required',
-    //         'nota' => 'required|numeric',
-    //     ]);
+    //      $resultats_aprenentatge = resultats_aprenentatge::with('criteris_avaluacio', 'criteris_avaluacio.rubriques')
+    //      ->where('moduls_id', 7)
+    //      ->get();
+    //      return response()->json($resultats_aprenentatge);  
+    // }
 
-    //     // Obtiene los datos de la solicitud
-    //     $usuaris_id = $request->input('usuaris_id');
-    //     $criteris_avaluacio_id = $request->input('criteris_avaluacio_id');
-    //     $nota = $request->input('nota');
+    // public function desplegarModulUNO($moduls_id, $idUsuario)
+    // {
+    //     // Filtra los registros por el moduls_id y el id_usuario pasado a la función
+    //     $resultats_aprenentatge = resultats_aprenentatge::with([
+    //         'criteris_avaluacio',
+    //         'criteris_avaluacio.rubriques',
+    //         'criteris_avaluacio.alumnesHasCriterisAvaluacio' => function ($query) use ($idUsuario) {
+    //             $query->where('usuaris_id', $idUsuario);
+    //         }
+    //     ])->where('moduls_id', $moduls_id)->get();
+    
+    //     return response()->json($resultats_aprenentatge);
+    // }
+    
 
-    //     // Realiza la lógica para actualizar la nota en la base de datos
-    //     // Aquí deberías escribir el código para actualizar la nota en la tabla correspondiente
+    // public function desplegarModul($moduls_id)
+    //     {
+    //     // Filtra los registros por el moduls_id pasado a la función
+    //         $resultats_aprenentatge = resultats_aprenentatge::with([
+    //             'criteris_avaluacio',
+    //             'criteris_avaluacio.rubriques'
+    //         ])->where('moduls_id', $moduls_id)->get();
 
-    //     // Retorna una respuesta de éxito
-    //     return response()->json(['message' => 'Nota actualizada con éxito'], 200);
+    //         return response()->json($resultats_aprenentatge);
     // }
 
 
-    public function nota(Request $request, $usuaris_id, $criteris_avaluacio_id, $nota)
+    public function desplegarModulTODOS($moduls_id, $usuaris_id)
     {
+        $resultats_aprenentatge = resultats_aprenentatge::with([
+            'criteris_avaluacio' => function ($query) use ($usuaris_id) {
+                $query->with(['rubriques', 'alumnesHasCriterisAvaluacio' => function ($subquery) use ($usuaris_id) {
+                    $subquery->select('usuaris_id', 'criteris_avaluacio_id', 'nota')
+                            ->where('usuaris_id', $usuaris_id);
+                }])->whereHas('alumnesHasCriterisAvaluacio', function ($subquery) use ($usuaris_id) {
+                    $subquery->where('usuaris_id', $usuaris_id);
+                });
+            }
+        ])->where('moduls_id', $moduls_id)->get();
 
-        $nota->nota = $request->input('nota');
-
-        try {
-            $nota->save();
-            return response()->json(['mensaje' => 'Registro insertado correctamente'], 201);
-        } catch (QueryException $ex) {
-            $mensaje = Utilidad::errorMessage($ex);
-            return response()->json(['error' => $mensaje], 400);
-        }
+        // var_dump($resultats_aprenentatge);
+        return response()->json($resultats_aprenentatge);
+        
     }
 
+
+    public function actualizarNota($usuaris_id, $criteris_avaluacio_id, $nota)
+{
+    try {
+        // Validar que la nota sea un número
+        if (!is_numeric($nota)) {
+            return response()->json(['error' => 'Nota debe ser un número'], 400);
+        }
+
+        // Buscar el usuario y el módulo
+        $usuario = usuaris::findOrFail($usuaris_id);
+        $criteris_avaluacio = criteris_avaluacio::findOrFail($criteris_avaluacio_id);
+
+        // Actualizar la nota en la tabla intermedia
+        $usuario->criteris_avaluacio()->updateExistingPivot($criteris_avaluacio_id, ['nota' => $nota]);
+
+        return response()->json(['mensaje' => 'Nota actualizada correctamente'], 200);
+    } catch (ModelNotFoundException $ex) {
+        return response()->json(['error' => 'Usuario o módulo no encontrado'], 404);
+    } catch (Exception $ex) {
+        return response()->json(['error' => 'Error al actualizar la nota'], 500);
+    }
+}
+
+    // public function actualizarNota(Request $request)
+    // {
+    //     // Valida los datos recibidos en la solicitud
+    //     $request->validate([
+    //         'usuaris_id' => 'required|integer',
+    //         'criteris_avaluacio_id' => 'required|integer',
+    //         'nota' => 'required|numeric'
+    //     ]);
+    
+    //     try {
+    //         // Actualiza la nota en la tabla correspondiente
+    //         alumnes_has_criteris_avaluacio::where([
+    //             'usuaris_id' => $request->usuaris_id,
+    //             'criteris_avaluacio_id' => $request->criteris_avaluacio_id
+    //         ])->update(['nota' => $request->nota]);
+    
+    //         // Devuelve una respuesta exitosa
+    //         return response()->json(['message' => 'Nota actualizada con éxito'], 200);
+    //     } catch (\Exception $e) {
+    //         // Devuelve un mensaje de error en caso de fallo
+    //         return response()->json(['error' => 'Error al actualizar la nota desde el controlador'], 500);
+    //     }
+    // }
+    
+
+    // public function nota(Request $request, $usuaris_id, $criteris_avaluacio_id, $nota)
+    // {
+
+    //     $nota->nota = $request->input('nota');
+
+    //     try {
+    //         $nota->save();
+    //         return response()->json(['mensaje' => 'Registro insertado correctamente'], 201);
+    //     } catch (QueryException $ex) {
+    //         $mensaje = Utilidad::errorMessage($ex);
+    //         return response()->json(['error' => $mensaje], 400);
+    //     }
+    // }
 
 
 }

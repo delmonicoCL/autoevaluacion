@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Selecciona </h2>
+        <h2>Selecciona Alumno </h2>
         <select class="form-select" @change="seleccionarUsuario($event)">
             <option v-for="usuario in usuarios" :key="usuario.id" :value="usuario.id">
                 {{ usuario.nom_usuari }} - {{ usuario.nom }} {{ usuario.cognom }}

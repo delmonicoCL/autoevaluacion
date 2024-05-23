@@ -6,7 +6,12 @@
 
     <div class="container mt-5">
            TEXTO DESDE VENTANA BLADE
-            <div id="ciclos"></div>
+           <div id="app">
+            <div id="ciclos">
+              <ciclos></ciclos>
+          </div>
+
+            
     </div>
 
     

@@ -139,6 +139,8 @@
 
     @yield('contenido')
 
+    
+
 </body>
 
 </html>

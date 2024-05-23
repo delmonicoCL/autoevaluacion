@@ -16,44 +16,24 @@ class MatriculadosControllerApi extends Controller
     
 
 
-    public function getModulosUsuarios()
-    {
-        $usersWithModuls = Usuaris::with('moduls')->get();
-        return response()->json($usersWithModuls);
-    }
-
+    // public function getModulosUsuarios()
+    // {
+    //     $usersWithModuls = Usuaris::with('moduls')->get();
+    //     return response()->json($usersWithModuls);
+    // }
     
+    // public function getModulosUsuario85()
+    // {
+    //     // Obtén solo los módulos del usuario con usuaris_id 85
+    //     $userModules = Usuaris::with([
+    //         'moduls' => function ($query) {
+    //             $query->where('usuaris_has_moduls.usuaris_id', 85); // Filtra por usuaris_id 50
+    //         }
+    //     ])->find(85); // Encuentra el usuario con usuaris_id 50
 
-    public function getModulosUsuario85()
-    {
-        // Obtén solo los módulos del usuario con usuaris_id 85
-        $userModules = Usuaris::with([
-            'moduls' => function ($query) {
-                $query->where('usuaris_has_moduls.usuaris_id', 85); // Filtra por usuaris_id 50
-            }
-        ])->find(85); // Encuentra el usuario con usuaris_id 50
-
-        return response()->json($userModules);
-    }
-    public function getUsuariosInscritos($modulsId)
-    {
-        // Obtén el módulo con el ID proporcionado y carga los usuarios relacionados filtrando por tipus_usuaris_id 3
-        $modulo = Moduls::with([
-            'usuaris' => function ($query) {
-                $query->where('tipus_usuaris_id', 3);
-            }
-        ])->find($modulsId);
-
-        // Verifica si el módulo existe
-        if (!$modulo) {
-            return response()->json(['message' => 'Módulo no encontrado'], 404);
-        }
-
-        // Devuelve los usuarios inscritos en el módulo con tipus_usuaris_id 3
-        return response()->json($modulo->usuaris);
-    }
-
-
+    //     return response()->json($userModules);
+    // }
+        
 
     public function usuarioIDmodulo(Request $request, $usuaris_id)
 {
@@ -79,8 +59,23 @@ class MatriculadosControllerApi extends Controller
     return response()->json($formattedModules);
 }
 
+    public function getUsuariosInscritos($modulsId)
+        {
+            // Obtén el módulo con el ID proporcionado y carga los usuarios relacionados filtrando por tipus_usuaris_id 3
+            $modulo = Moduls::with([
+                'usuaris' => function ($query) {
+                    $query->where('tipus_usuaris_id', 3);
+                }
+            ])->find($modulsId);
 
+            // Verifica si el módulo existe
+            if (!$modulo) {
+                return response()->json(['message' => 'Módulo no encontrado'], 404);
+            }
 
+            // Devuelve los usuarios inscritos en el módulo con tipus_usuaris_id 3
+            return response()->json($modulo->usuaris);
+        }
 
     public function matricular(Request $request, $usuaris_id, $moduls_id)
     {

@@ -5,7 +5,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th>ID-Modulosx</th>
+          <th>ID-Modulos</th>
           <th>Código</th>
           <th>Siglas</th>
           <th>Nombre del Módulo</th>

@@ -15,7 +15,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-// Route::apiResource('usuaris_has_moduls', MatriculadosControllerAPI::class);
+
 Route::apiResource('cicle', CicleController::class);
 
 Route::apiResource('resultats_aprenentatge', ResultadosAprendizajeController::class);
@@ -24,40 +24,27 @@ Route::apiResource('usuaris', UsuariosController::class);
 
 Route::post('matricula/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::class, 'matricular']);
 Route::delete('matricula/{usuaris_id}/{moduls_id}', [MatriculadosControllerAPI::class, 'desmatricular']);
-
-
-Route::get('usuariosmodulos', [MatriculadosControllerAPI::class, 'getModulosUsuarios']);
-
-
+Route::get('/modulos/{modulsId}/usuarios', [MatriculadosControllerAPI::class, 'getUsuariosInscritos']);    
 Route::get('usuarioID/{usuaris_id}', [MatriculadosControllerAPI::class, 'usuarioIDmodulo']);
-Route::get('usuarioAutenticadoIDmodulo', [MatriculadosControllerAPI::class, 'usuarioAutenticadoIDmodulo']);
 
-Route::get('rubricas', [ResultadosAprendizajeController::class, 'desplegar']);
-Route::get('rubricas/{moduls_id}', [ResultadosAprendizajeController::class, 'desplegarModul']);
-
+// Route::get('usuariosmodulos', [MatriculadosControllerAPI::class, 'getModulosUsuarios']);
+// Route::get('usuarioAutenticadoIDmodulo', [MatriculadosControllerAPI::class, 'usuarioAutenticadoIDmodulo']);
+// Route::get('rubricas', [ResultadosAprendizajeController::class, 'desplegar']);
+// Route::get('rubricas/{moduls_id}', [ResultadosAprendizajeController::class, 'desplegarModul']);
+// Route::get('rubri/{moduls_id}/{usuaris_id}', [ResultadosAprendizajeController::class, 'desplegarModulUNO']);
 
 Route::get('rubric/{moduls_id}/{usuaris_id}', [ResultadosAprendizajeController::class, 'desplegarModulTODOS']);
-
-
-Route::get('rubri/{moduls_id}/{usuaris_id}', [ResultadosAprendizajeController::class, 'desplegarModulUNO']);
-
-
-
 Route::post('nota/{idUsuario}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'actualizarNota']);
-
-
 Route::post('nota/{idUsuario}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'nota']);
 
+// Route::put('/actualizar-nota/{usuaris_id}/{criteris_avaluacio_id}', [ResultadosAprendizajeController::class, 'actualizarNota']);
+
+Route::put('/actualizar-nota/{usuaris_id}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'actualizarNota']);
+Route::put('api/actualizar-nota/{usuaris_id}/{criteris_avaluacio_id}/{nota}', 'ResultadosAprendizajeController@actualizarNota');
 
 
+// Route::match(['post', 'put'], '/actualizar-nota', [ResultadosAprendizajeController::class, 'actualizarNota']);
 
-Route::put('/actualizar-nota', [ResultadosAprendizajeController::class, 'actualizarNota']);
-
-
-Route::get('/modulos/{modulsId}/usuarios', [MatriculadosControllerAPI::class, 'getUsuariosInscritos']);
+// Route::put('/actualizar-nota', [ResultadosAprendizajeController::class, 'actualizarNota']);
 
 
-// Route::get('modulosusuarios', [usuariosModulosControlador::class, 'index']);
-
-// Route::get('usuarios_modulos', [MatriculadosControllerAPI::class, 'getModulosUsuario']); //revisar
-// Route::get('85', [MatriculadosControllerAPI::class, 'getModulosUsuario85']);

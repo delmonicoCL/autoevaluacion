@@ -58,8 +58,8 @@
     <div class="col-5 custom-margin">
            
             <div class=" mb-5 custom-margin d-flex flex-column ">
-               <H1 class="align-items-center font" style="font-size: 60px;">AUTOEVALUACION</H1>
-               <p class="mt-2" style="font-size: 18px; border-radius: 10px; padding: 10px;"> La autoevaluación es un método mediante el cual una persona evalúa su propio desempeño o manejo de una situación específica. Este proceso implica una reflexión interna en la que se identifican tanto las fortalezas como las áreas de mejora.</p>
+               <H1 class="align-items-center font" style="font-size: 50px;">AUTOEVALUACION</H1>
+               <p class="mt-2" style="font-size: 18px; border-radius: 10px; padding: 10px;"> La autoevaluación es un método mediante el cual una persona evalúa su propio desempeño o manejo de una situación específica</p>
              
             </div>
 
@@ -90,9 +90,9 @@
             </div>
         </form>
     </div>
-    <div class="card-footer">
+    {{-- <div class="card-footer">
         <h5>¿No tienes cuenta?</h5> <a href="" data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">Haz clic aquí</a>.
-    </div>
+    </div> --}}
 </div>
 
 

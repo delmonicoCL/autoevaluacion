@@ -20,10 +20,9 @@
                         <td class="centered">{{ rubrica.criteris_avaluacio[0]?.rubriques[1]?.descripcio ?? '' }}</td>
                         <td class="centered">{{ rubrica.criteris_avaluacio[0]?.rubriques[2]?.descripcio ?? '' }}</td>
                         <td class="centered">
-                            <input type="number" name="nota"
-                                v-model="rubrica.criteris_avaluacio[0].alumnes_has_criteris_avaluacio[0].nota"
-                                @change="actualizarNota(rubrica)">
-                        </td>
+        <input type="number" name="nota" v-model="rubrica.criteris_avaluacio[0].alumnes_has_criteris_avaluacio[0].nota"
+            @change="actualizarNota(rubrica)">
+    </td>
                     </tr>
                     <tr v-for="(criterio, index) in rubrica.criteris_avaluacio.slice(1)" :key="criterio.id">
                         <td class="centered">{{ criterio.descripcio }}</td>
@@ -31,9 +30,9 @@
                         <td class="centered">{{ criterio.rubriques[1]?.descripcio ?? '' }}</td>
                         <td class="centered">{{ criterio.rubriques[2]?.descripcio ?? '' }}</td>
                         <td class="centered">
-                            <input type="number" name="nota" v-model="criterio.alumnes_has_criteris_avaluacio[0].nota"
-                                @change="actualizarNota(criterio)">
-                        </td>
+            <input type="number" name="nota" v-model="criterio.alumnes_has_criteris_avaluacio[0].nota"
+                @change="actualizarNota(criterio)">
+        </td>
                     </tr>
                 </template>
             </tbody>
@@ -57,19 +56,23 @@ export default {
     },
     methods: {
         actualizarNota(item) {
-            const me = this;
-            axios.put('/api/actualizar-nota', {
-                usuaris_id: me.idUsuario,
-                criteris_avaluacio_id: item.criteris_avaluacio[0].id,
-                nota: item.criteris_avaluacio[0].alumnes_has_criteris_avaluacio[0].nota
-            })
-                .then(response => {
-                    console.log('Nota actualizada con éxito');
-                })
-                .catch(error => {
-                    console.error('Error actualizando la nota DESDE VUE:', error);
-                });
-        }
+    const me = this;
+    const id = item.id;
+    const url = `/api/actualizar-nota/${me.idUsuario}/${id}`;
+    const nota = item.alumnes_has_criteris_avaluacio ? item.alumnes_has_criteris_avaluacio[0].nota : null;
+    
+    axios.put(url, {
+        nota: nota
+    })
+    .then(response => {
+        console.log('Nota actualizada con éxito');
+    })
+    .catch(error => {
+        console.error('Error actualizando la nota DESDE VUE:', error);
+    });
+}
+
+
     }
 }
 </script>
