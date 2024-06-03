@@ -15,26 +15,6 @@ class MatriculadosControllerApi extends Controller
 
     
 
-
-    // public function getModulosUsuarios()
-    // {
-    //     $usersWithModuls = Usuaris::with('moduls')->get();
-    //     return response()->json($usersWithModuls);
-    // }
-    
-    // public function getModulosUsuario85()
-    // {
-    //     // Obtén solo los módulos del usuario con usuaris_id 85
-    //     $userModules = Usuaris::with([
-    //         'moduls' => function ($query) {
-    //             $query->where('usuaris_has_moduls.usuaris_id', 85); // Filtra por usuaris_id 50
-    //         }
-    //     ])->find(85); // Encuentra el usuario con usuaris_id 50
-
-    //     return response()->json($userModules);
-    // }
-        
-
     public function usuarioIDmodulo(Request $request, $usuaris_id)
 {
     // Obtén solo los módulos del usuario con el ID pasado por la ruta

@@ -140,68 +140,32 @@ class ResultadosAprendizajeController extends Controller
     }
 
 
-    public function actualizarNota($usuaris_id, $criteris_avaluacio_id, $nota)
-{
-    try {
-        // Validar que la nota sea un número
-        if (!is_numeric($nota)) {
-            return response()->json(['error' => 'Nota debe ser un número'], 400);
+    public function actualizarNota(Request $request)
+    {
+        $validated = $request->validate([
+            'usuaris_id' => 'required|integer',
+            'criteris_avaluacio_id' => 'required|integer',
+            'nota' => 'required|numeric',
+        ]);
+
+        try {
+            // Buscar el usuario
+            $usuario = Usuaris::findOrFail($validated['usuaris_id']);
+            
+            // Sincronizar la nota en la tabla intermedia
+            $usuario->criteris_avaluacio()->syncWithoutDetaching([
+                $validated['criteris_avaluacio_id'] => ['nota' => $validated['nota']]
+            ]);
+
+            return response()->json(['mensaje' => 'Nota actualizada correctamente'], 200);
+        } catch (ModelNotFoundException $ex) {
+            return response()->json(['error' => 'Usuario o criterio de evaluación no encontrado'], 404);
+        } catch (Exception $ex) {
+            // Registrar el mensaje de error para depuración
+            Log::error('Error al actualizar la nota: ' . $ex->getMessage());
+            return response()->json(['error' => 'Error al actualizar la nota', 'mensaje' => $ex->getMessage()], 500);
         }
-
-        // Buscar el usuario y el módulo
-        $usuario = usuaris::findOrFail($usuaris_id);
-        $criteris_avaluacio = criteris_avaluacio::findOrFail($criteris_avaluacio_id);
-
-        // Actualizar la nota en la tabla intermedia
-        $usuario->criteris_avaluacio()->updateExistingPivot($criteris_avaluacio_id, ['nota' => $nota]);
-
-        return response()->json(['mensaje' => 'Nota actualizada correctamente'], 200);
-    } catch (ModelNotFoundException $ex) {
-        return response()->json(['error' => 'Usuario o módulo no encontrado'], 404);
-    } catch (Exception $ex) {
-        return response()->json(['error' => 'Error al actualizar la nota'], 500);
     }
-}
-
-    // public function actualizarNota(Request $request)
-    // {
-    //     // Valida los datos recibidos en la solicitud
-    //     $request->validate([
-    //         'usuaris_id' => 'required|integer',
-    //         'criteris_avaluacio_id' => 'required|integer',
-    //         'nota' => 'required|numeric'
-    //     ]);
-    
-    //     try {
-    //         // Actualiza la nota en la tabla correspondiente
-    //         alumnes_has_criteris_avaluacio::where([
-    //             'usuaris_id' => $request->usuaris_id,
-    //             'criteris_avaluacio_id' => $request->criteris_avaluacio_id
-    //         ])->update(['nota' => $request->nota]);
-    
-    //         // Devuelve una respuesta exitosa
-    //         return response()->json(['message' => 'Nota actualizada con éxito'], 200);
-    //     } catch (\Exception $e) {
-    //         // Devuelve un mensaje de error en caso de fallo
-    //         return response()->json(['error' => 'Error al actualizar la nota desde el controlador'], 500);
-    //     }
-    // }
-    
-
-    // public function nota(Request $request, $usuaris_id, $criteris_avaluacio_id, $nota)
-    // {
-
-    //     $nota->nota = $request->input('nota');
-
-    //     try {
-    //         $nota->save();
-    //         return response()->json(['mensaje' => 'Registro insertado correctamente'], 201);
-    //     } catch (QueryException $ex) {
-    //         $mensaje = Utilidad::errorMessage($ex);
-    //         return response()->json(['error' => $mensaje], 400);
-    //     }
-    // }
-
 
 }
 

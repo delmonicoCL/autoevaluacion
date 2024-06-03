@@ -56,26 +56,30 @@ export default {
     },
     methods: {
         actualizarNota(item) {
-    const me = this;
-    const id = item.id;
-    const url = `/api/actualizar-nota/${me.idUsuario}/${id}`;
-    const nota = item.alumnes_has_criteris_avaluacio ? item.alumnes_has_criteris_avaluacio[0].nota : null;
-    
-    axios.put(url, {
-        nota: nota
-    })
-    .then(response => {
-        console.log('Nota actualizada con éxito');
-    })
-    .catch(error => {
-        console.error('Error actualizando la nota DESDE VUE:', error);
-    });
-}
+            const me = this;
+            const id = item.id;
+            const url = `/api/actualizar-nota`;
 
+            // Obtener la nota del item
+            const nota = item.alumnes_has_criteris_avaluacio ? item.alumnes_has_criteris_avaluacio[0].nota : null;
 
+            // Enviar la solicitud HTTP para actualizar la nota
+            axios.put(url, {
+                usuaris_id: me.idUsuario,
+                criteris_avaluacio_id: id,
+                nota: nota
+            })
+            .then(response => {
+                console.log('Nota actualizada con éxito');
+            })
+            .catch(error => {
+                console.error('Error actualizando la nota desde Vue:', error);
+            });
+        }
     }
 }
 </script>
+
 
 
 <style scoped>

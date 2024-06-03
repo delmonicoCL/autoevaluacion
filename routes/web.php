@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CicleController;
-use App\Http\Controllers\UsuarisController;
-use App\Http\Controllers\ModulsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CicleController;
+use App\Http\Controllers\ModulsController;
+use App\Http\Controllers\UsuarisController;
 
 Route::get('/', function () {
     return view('auth.login');

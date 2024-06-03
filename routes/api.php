@@ -34,17 +34,24 @@ Route::get('usuarioID/{usuaris_id}', [MatriculadosControllerAPI::class, 'usuario
 // Route::get('rubri/{moduls_id}/{usuaris_id}', [ResultadosAprendizajeController::class, 'desplegarModulUNO']);
 
 Route::get('rubric/{moduls_id}/{usuaris_id}', [ResultadosAprendizajeController::class, 'desplegarModulTODOS']);
-Route::post('nota/{idUsuario}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'actualizarNota']);
-Route::post('nota/{idUsuario}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'nota']);
+// Route::post('nota/{idUsuario}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'actualizarNota']);
+// Route::post('nota/{idUsuario}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'nota']);
 
 // Route::put('/actualizar-nota/{usuaris_id}/{criteris_avaluacio_id}', [ResultadosAprendizajeController::class, 'actualizarNota']);
 
-Route::put('/actualizar-nota/{usuaris_id}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'actualizarNota']);
-Route::put('api/actualizar-nota/{usuaris_id}/{criteris_avaluacio_id}/{nota}', 'ResultadosAprendizajeController@actualizarNota');
+// Route::put('/actualizar-nota/{usuaris_id}/{criteris_avaluacio_id}/{nota}', [ResultadosAprendizajeController::class, 'actualizarNota']);
+
+
+// Route::put('api/actualizar-nota/{usuaris_id}/{criteris_avaluacio_id}/{nota}', 'ResultadosAprendizajeController@actualizarNota');
 
 
 // Route::match(['post', 'put'], '/actualizar-nota', [ResultadosAprendizajeController::class, 'actualizarNota']);
 
 // Route::put('/actualizar-nota', [ResultadosAprendizajeController::class, 'actualizarNota']);
+
+
+// Route::post('/actualizar-nota', [ResultadosAprendizajeController::class, 'actualizarNota']);
+
+Route::put('/actualizar-nota', [ResultadosAprendizajeController::class, 'actualizarNota']);
 
 
